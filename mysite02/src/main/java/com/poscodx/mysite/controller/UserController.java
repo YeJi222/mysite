@@ -7,7 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.poscodx.mysite.dao.GuestBookDao;
+import com.poscodx.mysite.dao.UserDao;
 import com.poscodx.mysite.vo.GuestBookVo;
+import com.poscodx.mysite.vo.UserVo;
+import com.poscodx.mysite.web.mvc.user.JoinAction;
+import com.poscodx.mysite.web.mvc.user.JoinFormAction;
+import com.poscodx.mysite.web.mvc.user.JoinSuccessAction;
+import com.poscodx.web.mvc.Action;
 
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -15,30 +21,25 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String action = request.getParameter("a");
+		String actionName = request.getParameter("a");
+		Action action = null;
 		
-		if("joinform".equals(action)) {
-			request
-				.getRequestDispatcher("/WEB-INF/views/user/joinform.jsp")
-				.forward(request, response);
-		} else if("join".equals(action)) {
-			String name = request.getParameter("name");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String gender = request.getParameter("gender");
-			String agreeProv = request.getParameter("agreeProv");
+		if("joinform".equals(actionName)) {
+			action = new JoinFormAction();
+		} else if("join".equals(actionName)) {
+			action = new JoinAction();
+		} else if("joinsuccess".equals(actionName)) {
+			action = new JoinSuccessAction();
+		} else if("loginform".equals("action")) {
 			
-			System.out.println(name + " " + password + " " +  email + " " + gender + " " + agreeProv);
-//			
-//			GuestBookVo vo = new GuestBookVo();
-//			vo.setName(name);
-//			vo.setPassword(password);
-//			vo.setContents(contents);
-//			
-//			new GuestBookDao().insert(vo);
-//			
-//			response.sendRedirect("/mysite02/main");
-		} 
+		}
+		
+		if(action == null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
+		
+		action.execute(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
