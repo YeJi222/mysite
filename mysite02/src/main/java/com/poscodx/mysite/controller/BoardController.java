@@ -6,11 +6,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.poscodx.mysite.web.mvc.board.BoardActionFactory;
+import com.poscodx.web.mvc.Action;
+import com.poscodx.web.mvc.ActionFactory;
+
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(request, response);
+		String actionName = request.getParameter("a");
+		
+		ActionFactory af = new BoardActionFactory(); 
+		Action action = af.getAction(actionName);
+		action.execute(request, response);
+		
+		// request.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
