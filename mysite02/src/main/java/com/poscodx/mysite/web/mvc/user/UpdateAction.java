@@ -36,10 +36,9 @@ public class UpdateAction implements Action {
 		userVo.setPassword(password);
 		userVo.setGender(gender);
 		
-		UserVo updateUserVo = new UserDao().updateUserInfo(userVo);
+		new UserDao().updateUserInfo(userVo);
 		
-		/* session update */
-		session.setAttribute("authUser", updateUserVo);
+		authUser.setName(name);
 		
 		response.sendRedirect(request.getContextPath() + "/user?a=updateform");
 	}

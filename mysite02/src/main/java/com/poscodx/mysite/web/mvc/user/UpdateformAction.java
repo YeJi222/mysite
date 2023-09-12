@@ -19,19 +19,17 @@ public class UpdateformAction implements Action {
 		// Access Control(접근제어)
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		
 		if(authUser == null) {
-			response.sendRedirect(request.getContextPath() + "/user?a=loginform");
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
+		//////////////////////////////////////////////////////
 		
-		UserVo userInfo = new UserDao().getUserByNo(authUser.getNo());
+		Long no = authUser.getNo();
+		UserVo userVo = new UserDao().getUserByNo(no);
 		
-		/////////////////////////////////
-		
-		request.setAttribute("userInfo", userInfo);
+		request.setAttribute("userVo", userVo);
 		WebUtil.forward("user/updateform", request, response);
-		
 	}
 
 }

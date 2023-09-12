@@ -111,9 +111,7 @@ public class UserDao {
 		return userVo;
 	}
 	
-	public UserVo updateUserInfo(UserVo vo) {
-		UserVo userVo = new UserVo();
-		
+	public void updateUserInfo(UserVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -137,14 +135,7 @@ public class UserDao {
 				pstmt.setLong(4, vo.getNo());
 			}
 			
-			int result = pstmt.executeUpdate();
-			if(result == 1){
-				userVo.setNo(vo.getNo());
-				userVo.setName(vo.getName());
-				userVo.setPassword(vo.getPassword());
-				userVo.setGender(vo.getGender());
-			}
-			
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error:" + e);
 		} finally {
@@ -160,8 +151,6 @@ public class UserDao {
 				e.printStackTrace();
 			}
 		}
-		
-		return userVo;
 	}
 	
 	public Boolean insert(UserVo vo) {
