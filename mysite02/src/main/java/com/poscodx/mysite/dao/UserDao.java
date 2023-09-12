@@ -120,14 +120,22 @@ public class UserDao {
 		try {
 			conn = getConnection();
 			
-			String sql =
-				"update user set name=?, password=password(?), gender=?" +
-				" where no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getPassword());
-			pstmt.setString(3, vo.getGender());
-			pstmt.setLong(4, vo.getNo());
+			if("".equals(vo.getPassword())) {
+				String sql = "update user set name=?, gender=? where no=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getGender());
+				pstmt.setLong(3, vo.getNo());
+			} else {
+				String sql = "update user set name=?, gender=?, password=password(?) where no=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getGender());
+				pstmt.setString(3, vo.getPassword());
+				pstmt.setLong(4, vo.getNo());
+			}
 			
 			int result = pstmt.executeUpdate();
 			if(result == 1){

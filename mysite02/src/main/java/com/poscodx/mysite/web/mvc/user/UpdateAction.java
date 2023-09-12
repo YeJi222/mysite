@@ -21,7 +21,7 @@ public class UpdateAction implements Action {
 		
 		// 세션 실패  
 		if(authUser == null) {
-			WebUtil.forward("user/loginform", request, response);
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		
