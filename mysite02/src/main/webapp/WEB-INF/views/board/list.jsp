@@ -42,7 +42,7 @@
 										<div></div>
 									</c:otherwise>
 								</c:choose>
-								<a href="">${vo.title }</a>
+								<a href="${pageContext.request.contextPath }/board?a=viewform&no=${vo.no}">${vo.title }</a>
 							</td>
 							<td>안대혁</td>
 							<td>${vo.hit }</td>
