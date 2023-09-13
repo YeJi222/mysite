@@ -16,9 +16,13 @@ import com.poscodx.web.utils.WebUtil;
 public class ViewFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		long no = Long.parseLong(request.getParameter("no"));
 		
 		BoardVo vo = new BoardDao().getInfoByNo(no);
+		new BoardDao().addHit(no);
+		
+		System.out.println("viewformAction : " + vo);
 		
 		request.setAttribute("vo", vo);
 		

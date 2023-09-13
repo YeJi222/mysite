@@ -30,10 +30,10 @@ public class BoardActionFactory implements ActionFactory {
 			action = new ModifyFormAction();
 		} else if("modify".equals(actionName)) {
 			action = new ModifyAction();
-		} else {
+		} else { 
 			action = new ListAction();
 		}
-		
+		       
 		return action;
 	}
 }

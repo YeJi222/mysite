@@ -35,7 +35,7 @@
 							<td>${count - status.index } </td>
 							<td style="padding-left: ${((vo.depth + 1) - 1)*30 }px">
 								<c:choose>
-									<c:when test='${vo.depth != 0 }'>
+									<c:when test='${vo.depth > 1 }'>
 										<img src="${pageContext.request.contextPath }/assets/images/reply.png">
 									</c:when>
 									<c:otherwise>
@@ -44,7 +44,7 @@
 								</c:choose>
 								<a href="${pageContext.request.contextPath }/board?a=viewform&no=${vo.no}">${vo.title }</a>
 							</td>
-							<td>안대혁</td>
+							<td>${vo.writer }</td> 
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<td><a href="" class="del">삭제</a></td>
@@ -64,10 +64,12 @@
 						<li><a href="">▶</a></li>
 					</ul>
 				</div>					
-				<!-- pager 추가 -->				
-				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
-				</div>				
+				
+				<c:if test="${not empty authUser }">
+					<div class="bottom">
+						<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+					</div>				
+				</c:if>	
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />

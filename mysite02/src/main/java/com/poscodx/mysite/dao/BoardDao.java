@@ -13,12 +13,15 @@ import com.poscodx.mysite.vo.BoardVo;
 public class BoardDao {
 
 	public Boolean insert(BoardVo vo) {
+		System.out.println(vo);		
+		
 		boolean result = false;
 
 		Connection conn = null;
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
 		ResultSet rs1 = null;
 		ResultSet rs2 = null;
 
@@ -29,37 +32,54 @@ public class BoardDao {
 			
 			pstmt1 = conn.prepareStatement(sql1);
 			rs1 = pstmt1.executeQuery();
+			Long next_gNo = (long) 0;
+			Long next_oNo = (long) 1;
+			Long next_depth = (long) 1;
+			
 			int rowCount = 0;
 			if(rs1.next()) {
 				rowCount = rs1.getInt(1);
 			}
-			// System.out.println(rowCount);
 			
-			// 새 글인 경우 
-			int next_gNo = 0;
-			if(rowCount == 0) { // board 테이블의 row가 하나도 없을 때 	
-				next_gNo = 1;
-			} else { // board data가 하나 이상 있을 때 
-				String sql2 = "select max(g_no)+1 from board;";
-				pstmt2 = conn.prepareStatement(sql2);
-				rs2 = pstmt2.executeQuery();
-				
-				if(rs2.next()) {
-					next_gNo = rs2.getInt(1);
+			if(vo.getNo() == null) { // 새 글인 경우 
+				if(rowCount == 0) { // board 테이블의 row가 하나도 없을 때 	
+					next_gNo = (long) 1;
+				} else { // board data가 하나 이상 있을 때 
+					String sql2 = "select max(g_no)+1 from board;";
+					pstmt2 = conn.prepareStatement(sql2);
+					rs2 = pstmt2.executeQuery();
+					
+					if(rs2.next()) {
+						next_gNo = rs2.getLong(1);
+					}
 				}
+			} else { // 답글인 경우 
+				// view 기준 
+				next_gNo = vo.getG_no();
+				next_oNo = vo.getO_no() + 1; // 기준 view의 order_no + 1
+				next_depth = vo.getDepth() + 1;
+				
+				// 기준 view의 g_no, o_no, depth 그대로
+				// 새로 추가할 o_no 는 기준 view의 o_no + 1
+				// 계층에서 그 이하(o_no 숫자가 기준 view보다 큰 경우) o_no + 1 
+				String sql3 = "update board set o_no=o_no+1 where g_no=? and o_no>=?;";
+				pstmt3 = conn.prepareStatement(sql3);
+				pstmt3.setLong(1, next_gNo);
+				pstmt3.setLong(2, next_oNo);
+				pstmt3.executeQuery();
 			}
-			// System.out.println(next_gNo);
+			String sql4 = "insert into board values(null, ?, ?, 0, now(), ?, ?, ?, ?)";
+			pstmt4 = conn.prepareStatement(sql4);
+			pstmt4.setString(1, vo.getTitle());
+			pstmt4.setString(2, vo.getContents());
+			pstmt4.setLong(3, next_gNo);
+			pstmt4.setLong(4, next_oNo);
+			pstmt4.setLong(5, next_depth);
+			pstmt4.setLong(6, vo.getUser_no());
 
-			String sql3 = "insert into board values(null, ?, ?, 0, now(), ?, 1, 0)";
-			pstmt3 = conn.prepareStatement(sql3);
-			pstmt3.setString(1, vo.getTitle());
-			pstmt3.setString(2, vo.getContents());
-			pstmt3.setInt(3, next_gNo);
-
-			int count = pstmt3.executeUpdate();
+			int count = pstmt4.executeUpdate();
 
 			result = count == 1;
-
 		} catch (SQLException e) {
 			System.out.println("Error:" + e);
 		} finally {
@@ -72,6 +92,9 @@ public class BoardDao {
 				}
 				if(pstmt3 != null) {
 					pstmt3.close();
+				}
+				if(pstmt4 != null) {
+					pstmt4.close();
 				}
 				if(rs1 != null) {
 					rs1.close();
@@ -95,16 +118,18 @@ public class BoardDao {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
+		ResultSet rs2 = null;
 
 		try {
 			conn = getConnection();
 
 			String sql =
-				"select no, title, contents, hit," +
+				"select board.no, title, contents, hit," +
 				" date_format(reg_date, '%Y-%m-%d %H:%i:%s')," + 
-				" g_no, o_no, depth" + 
-				" from board" + 
+				" g_no, o_no, depth, name" + 
+				" from board join user where user.no = board.user_no" + 
 				" order by g_no desc, o_no asc;";
 			pstmt = conn.prepareStatement(sql);
 
@@ -118,7 +143,8 @@ public class BoardDao {
 				Long g_no = rs.getLong(6);
 				Long o_no = rs.getLong(7);
 				Long depth = rs.getLong(8);
-
+				String writer = rs.getString(9);
+				
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
 				vo.setTitle(title);
@@ -128,6 +154,7 @@ public class BoardDao {
 				vo.setG_no(g_no);
 				vo.setO_no(o_no);
 				vo.setDepth(depth);
+				vo.setWriter(writer);
 
 				result.add(vo);
 			}
@@ -166,7 +193,7 @@ public class BoardDao {
 			conn = getConnection();
 			
 			String sql =
-					"select title, contents from board" +
+					"select title, contents, hit, g_no, o_no, depth from board" +
 					" where no=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, no);
@@ -176,11 +203,19 @@ public class BoardDao {
 			if(rs.next()) {
 				String title = rs.getString(1);
 				String contents = rs.getString(2);
+				Long hit = rs.getLong(3);
+				Long g_no = rs.getLong(4);
+				Long o_no = rs.getLong(5);
+				Long depth = rs.getLong(6);
 				
 				boardVo = new BoardVo();
 				boardVo.setNo(no);
 				boardVo.setTitle(title);
 				boardVo.setContents(contents);
+				boardVo.setHit(hit);
+				boardVo.setG_no(g_no);
+				boardVo.setO_no(o_no);
+				boardVo.setDepth(depth);
 			}
 			
 			
@@ -235,6 +270,35 @@ public class BoardDao {
 			}
 		}
 		
+	}
+	
+	public void addHit(long no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update board set hit=hit+1 where no=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private Connection getConnection() throws SQLException {

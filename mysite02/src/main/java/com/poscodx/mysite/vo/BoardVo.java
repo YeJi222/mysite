@@ -9,7 +9,15 @@ public class BoardVo {
 	private Long g_no;
 	private Long o_no;
 	private Long depth;
+	private Long user_no;
+	private String writer;
 	
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	public Long getNo() {
 		return no;
 	}
@@ -57,6 +65,13 @@ public class BoardVo {
 	}
 	public void setDepth(Long depth) {
 		this.depth = depth;
+	}
+	
+	public Long getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(Long user_no) {
+		this.user_no = user_no;
 	}
 	
 	@Override

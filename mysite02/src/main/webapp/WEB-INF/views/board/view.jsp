@@ -37,12 +37,14 @@
 								내용 3입니다. -->
 								<c:out value='${fn:replace(vo.contents, newline, br)}' escapeXml="false" />
 							</div>
-						</td>
+						</td>    
 					</tr>
 				</table>
 				<div class="bottom">
+					
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 					<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${vo.no}">글수정</a>
+					<a href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no}">답글</a>
 				</div>
 			</div>
 		</div>
