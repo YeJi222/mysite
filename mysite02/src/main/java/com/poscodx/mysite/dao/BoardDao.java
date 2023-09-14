@@ -193,10 +193,11 @@ public class BoardDao {
 			conn = getConnection();
 			
 			String sql =
-					"select title, contents, hit, g_no, o_no, depth from board" +
-					" where no=?";
+					"select title, contents, hit, g_no, o_no, depth, user_no, user.name"
+					+ " from board join user" +
+					" where board.user_no = user.no and board.no=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, no);
+			pstmt.setLong(1, no); 
 			
 			rs = pstmt.executeQuery();
 			
@@ -207,6 +208,8 @@ public class BoardDao {
 				Long g_no = rs.getLong(4);
 				Long o_no = rs.getLong(5);
 				Long depth = rs.getLong(6);
+				Long user_no = rs.getLong(7);
+				String writer = rs.getString(8);
 				
 				boardVo = new BoardVo();
 				boardVo.setNo(no);
@@ -216,8 +219,11 @@ public class BoardDao {
 				boardVo.setG_no(g_no);
 				boardVo.setO_no(o_no);
 				boardVo.setDepth(depth);
+				boardVo.setUser_no(user_no);
+				boardVo.setWriter(writer);
 			}
 			
+			System.out.println("dao vo : " + boardVo);
 			
 		} catch (SQLException e) {
 			System.out.println("Error:" + e);

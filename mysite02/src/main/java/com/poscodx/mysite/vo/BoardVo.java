@@ -77,6 +77,7 @@ public class BoardVo {
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", hit=" + hit + ", regDate="
-				+ regDate + ", g_no=" + g_no + ", o_no=" + o_no + ", depth=" + depth + "]";
+				+ regDate + ", g_no=" + g_no + ", o_no=" + o_no + ", depth=" + depth + ", user_no=" + user_no
+				+ ", writer=" + writer + "]";
 	}
 }

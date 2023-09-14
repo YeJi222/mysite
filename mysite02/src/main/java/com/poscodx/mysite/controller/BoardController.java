@@ -19,8 +19,6 @@ public class BoardController extends HttpServlet {
 		ActionFactory af = new BoardActionFactory(); 
 		Action action = af.getAction(actionName);
 		action.execute(request, response);
-		
-		// request.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
