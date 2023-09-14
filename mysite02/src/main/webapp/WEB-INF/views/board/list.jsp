@@ -60,13 +60,35 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
+						<c:if test="${pageInfo.prevBtn == true}">
+							<li><a href="">◀</a></li>
+						</c:if>
+						
+						<c:forEach var="pageNo" begin="${pageInfo.startPageNo }" end="${pageInfo.endPageNo }">
+							<c:choose>
+								<c:when test="${pageNo > pageInfo.totalPageNo}">
+									<li>${pageNo }</li>
+								</c:when>
+								
+								<c:when test="${pageNo != pageInfo.curPageNo}">
+									<li><a href="${pageContext.request.contextPath }/board?pageNum=${pageNo }">${pageNo }</a></li>
+								</c:when>
+								
+								<c:when test="${pageNo == pageInfo.curPageNo}">
+									<li class="selected">${pageNo }</li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						
+						<%-- <li><a href="${pageContext.request.contextPath }/board?pageNum=1">1</a></li>
 						<li class="selected">2</li>
-						<li><a href="">3</a></li>
+						<li><a href="${pageContext.request.contextPath }/board?pageNum=3">3</a></li>
 						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<li>5</li> --%>
+						
+						<c:if test="${pageInfo.nextBtn == true}">
+							<li><a href="">▶</a></li>
+						</c:if>
 					</ul>
 				</div>					
 				

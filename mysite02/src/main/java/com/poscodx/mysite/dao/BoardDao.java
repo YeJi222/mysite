@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.poscodx.mysite.vo.BoardVo;
+import com.poscodx.mysite.vo.PageVo;
 
 public class BoardDao {
 
 	public Boolean insert(BoardVo vo) {
-		System.out.println(vo);		
-		
 		boolean result = false;
 
 		Connection conn = null;
@@ -39,7 +38,7 @@ public class BoardDao {
 			int rowCount = 0;
 			if(rs1.next()) {
 				rowCount = rs1.getInt(1);
-			}
+			}	
 			
 			if(vo.getNo() == null) { // 새 글인 경우 
 				if(rowCount == 0) { // board 테이블의 row가 하나도 없을 때 	
@@ -78,6 +77,8 @@ public class BoardDao {
 			pstmt4.setLong(6, vo.getUser_no());
 
 			int count = pstmt4.executeUpdate();
+			
+			// System.out.println("in insert : " + vo);
 
 			result = count == 1;
 		} catch (SQLException e) {
@@ -118,9 +119,7 @@ public class BoardDao {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
-		ResultSet rs2 = null;
 
 		try {
 			conn = getConnection();
@@ -370,6 +369,34 @@ public class BoardDao {
 		
 	}
 	
+	public int getTotalPost() {
+		int totalPost = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql =
+					"select count(*) from board";
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalPost = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return totalPost;
+	}
+	
+	
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 
@@ -384,5 +411,84 @@ public class BoardDao {
 
 		return conn;
 	}
+
+	public List<BoardVo> pagePostList(PageVo pageVo) {
+		List<BoardVo> result = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			String sql =
+				"SELECT * FROM ("
+				+ "    SELECT S1.*,"
+				+ "           ROW_NUMBER() over () AS RNUM,"
+				+ "           COUNT(*) OVER() TOTCNT"
+				+ "    FROM ("
+				+ "        select t1.*, t2.name"
+				+ "        from board t1 join user t2"
+				+ "        where t1.user_no = t2.no"
+				+ "        order by g_no desc, o_no asc"
+				+ "    ) S1"
+				+ ") S2 where RNUM >= ? and RNUM <= ?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, pageVo.getStartPageNo());
+			pstmt.setLong(2, pageVo.getEndPageNo());
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Long no = rs.getLong(1);
+				String title = rs.getString(2);
+				String contents = rs.getString(3);
+				Long hit = rs.getLong(4);
+				String regDate = rs.getString(5);
+				Long g_no = rs.getLong(6);
+				Long o_no = rs.getLong(7);
+				Long depth = rs.getLong(8);
+				String writer = rs.getString(9);
+				
+				BoardVo vo = new BoardVo();
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setContents(contents);
+				vo.setHit(hit);
+				vo.setRegDate(regDate);
+				vo.setG_no(g_no);
+				vo.setO_no(o_no);
+				vo.setDepth(depth);
+				vo.setWriter(writer);
+
+				result.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+
+				if(pstmt != null) {
+					pstmt.close();
+				}
+
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+
+		return result;
+	}
+
+	
+
+	
 
 }

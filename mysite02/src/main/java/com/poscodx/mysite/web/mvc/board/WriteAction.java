@@ -48,6 +48,6 @@ public class WriteAction implements Action {
 		// System.out.println("writeAction : " + vo);
 		
 		new BoardDao().insert(vo);
-		response.sendRedirect(request.getContextPath() + "/board");
+		response.sendRedirect(request.getContextPath() + "/board?pageNum=1");
 	}
 }
