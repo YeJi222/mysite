@@ -301,6 +301,69 @@ public class BoardDao {
 		}
 	}
 	
+	public boolean deleteByNoAndPassword(Long no, String password) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			
+			String sql1 = "select count(*) from user join board"
+					+ " where user.no = board.user_no and"
+					+ " board.no=? and password=password(?)";
+			
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setLong(1, no);
+			pstmt1.setString(2, password);
+			
+			rs = pstmt1.executeQuery();
+			
+			int successCount = 0;
+			if(rs.next()) {
+				successCount = rs.getInt(1);
+			}
+			
+			// System.out.println("successCount : " + successCount);
+			if(successCount == 0) { // 패스워드 불일치 
+				System.out.println("패스워드 불일치(삭제 불가)");
+ 			} else { // 패스워드 일치 - delete 가능 
+ 				String sql2 = "delete from board where no=?";
+ 				pstmt2 = conn.prepareStatement(sql2);
+ 				pstmt2.setLong(1, no);
+ 	
+ 				int count = pstmt2.executeUpdate();
+ 	
+ 				result = count == 1;
+			}	
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try { 
+				if(pstmt1 != null) {
+					pstmt1.close();
+				}
+				if(pstmt2 != null) {
+					pstmt2.close();
+				}
+				if(rs != null) {
+					rs.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;	
+		
+	}
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 
