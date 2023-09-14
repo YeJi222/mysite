@@ -50,10 +50,10 @@ public class ListAction implements Action {
 		
 		
 		List<BoardVo> list = new BoardDao().findAll();
-		// System.out.println("ListAction : " + list);
-		request.setAttribute("list", list);
+		System.out.println("ListAction : " + list);
+		// request.setAttribute("list", list);
 		request.setAttribute("pageInfo", pageVo);
-		request.setAttribute("pagePostList", pagePostList);
+		request.setAttribute("list", pagePostList);
 		
 		WebUtil.forward("board/list", request, response);
 	}

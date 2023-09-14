@@ -423,20 +423,20 @@ public class BoardDao {
 			conn = getConnection();
 
 			String sql =
-				"SELECT * FROM ("
-				+ "    SELECT S1.*,"
-				+ "           ROW_NUMBER() over () AS RNUM,"
-				+ "           COUNT(*) OVER() TOTCNT"
-				+ "    FROM ("
-				+ "        select t1.*, t2.name"
-				+ "        from board t1 join user t2"
-				+ "        where t1.user_no = t2.no"
-				+ "        order by g_no desc, o_no asc"
-				+ "    ) S1"
-				+ ") S2 where RNUM >= ? and RNUM <= ?;";
+				"SELECT t1.*, t2.name"
+				+ " FROM board t1"
+				+ " JOIN user t2 ON t1.user_no = t2.no"
+				+ " ORDER BY g_no DESC, o_no ASC"
+				+ " LIMIT ?, ?;";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, pageVo.getStartPageNo());
-			pstmt.setLong(2, pageVo.getEndPageNo());
+			
+			Long startIdx = (long) ((pageVo.getCurPageNo() - 1) * pageVo.getPostSize());
+			Long endIdx = (long) pageVo.getPostSize();
+			
+			System.out.println("startIdx : " + startIdx + ", endIdx : " + endIdx);
+			
+			pstmt.setLong(1, startIdx);
+			pstmt.setLong(2, endIdx);
 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
