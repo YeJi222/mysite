@@ -448,7 +448,7 @@ public class BoardDao {
 				Long g_no = rs.getLong(6);
 				Long o_no = rs.getLong(7);
 				Long depth = rs.getLong(8);
-				String writer = rs.getString(9);
+				String writer = rs.getString(10);
 				
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
