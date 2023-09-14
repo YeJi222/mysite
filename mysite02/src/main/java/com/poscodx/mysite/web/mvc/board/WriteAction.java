@@ -45,7 +45,7 @@ public class WriteAction implements Action {
 		vo.setContents(contents);
 		vo.setWriter(writer);
 		
-		System.out.println("writeAction : " + vo);
+		// System.out.println("writeAction : " + vo);
 		
 		new BoardDao().insert(vo);
 		response.sendRedirect(request.getContextPath() + "/board");

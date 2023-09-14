@@ -22,7 +22,7 @@ public class ViewFormAction implements Action {
 		BoardVo vo = new BoardDao().getInfoByNo(no);
 		new BoardDao().addHit(no);
 		
-		System.out.println("viewformAction : " + vo);
+		// System.out.println("viewformAction : " + vo);
 		
 		request.setAttribute("vo", vo);
 		

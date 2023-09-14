@@ -223,7 +223,7 @@ public class BoardDao {
 				boardVo.setWriter(writer);
 			}
 			
-			System.out.println("dao vo : " + boardVo);
+			// System.out.println("dao vo : " + boardVo);
 			
 		} catch (SQLException e) {
 			System.out.println("Error:" + e);
