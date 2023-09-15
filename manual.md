@@ -37,16 +37,34 @@
 4. 회원정보수정 - 수정 완료 후, 회원정보수정 페이지에 그대로 위치    
    <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/74a0f462-1d10-44b0-b18a-025106b08748">
 
-
-
-7. 상태에 따른 UI 변화
-
-#### (방명록 관련 - guestbook)
-
-
 #### (게시물 관련 - board)
-2. 게시물 입력
+1. 게시물 입력
+   - 글쓰기 폼 
+   <img width="698" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/35bf48de-cc35-4768-825a-7d7e1c135324">
+
+   - 등록 버튼 클릭시, 게시글 등록 후 이전 게시판 페이지로 이동
+   <img width="569" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/005683fb-ca52-473f-a6a0-fab3e3ea532f">
+
+
 3. 게시물 리스트
+   - 로그인 전, 글쓰기 버튼 안보이게 
+   <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/9e37df7d-acc9-4bff-a81e-79705e828a73">
+
+   - 로그인 하면, 글쓰기 가능하도록
+   <img width="700" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/dcb425c8-424e-4df5-8f54-7e6dfcffa861">
+
 4. 게시물 삭제
 5. 게시물 보기
 6. 게시물 수정
+
+
+
+
+
+
+
+
+
+
+
+#### (방명록 관련 - guestbook)
