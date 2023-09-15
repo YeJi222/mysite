@@ -25,6 +25,6 @@ public class ModifyAction implements Action {
 		vo.setContents(contents);
 		
 		new BoardDao().update(vo);
-		response.sendRedirect(request.getContextPath() + "/board?a=modifyform&no=" + no + "&pageNum=" + pageNum);
+		response.sendRedirect(request.getContextPath() + "/board?a=viewform&no=" + no + "&pageNum=" + pageNum);
 	}
 }

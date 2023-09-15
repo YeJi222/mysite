@@ -48,11 +48,17 @@
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							
-							<c:if test="${authUser.name == vo.writer }">
-								<td>
-									<a href="${pageContext.request.contextPath }/board?a=deleteform&no=${vo.no}&pageNum=${pageInfo.curPageNo}" class="del">삭제</a>
-								</td>
-							</c:if>
+							<c:choose>
+								<c:when test="${authUser.name == vo.writer }">
+									<td>
+										<a href="${pageContext.request.contextPath }/board?a=deleteform&no=${vo.no}&pageNum=${pageInfo.curPageNo}" class="del">삭제</a>
+									</td>
+								</c:when>
+								
+								<c:when test="${authUser.name != vo.writer }">
+									<td></td>
+								</c:when>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</table>

@@ -67,7 +67,7 @@ public class BoardDao {
 				pstmt3.setLong(2, next_oNo);
 				pstmt3.executeQuery();
 			}
-			String sql4 = "insert into board values(null, ?, ?, 0, now(), ?, ?, ?, ?)";
+			String sql4 = "insert into board values(null, ?, ?, 0, current_date(), ?, ?, ?, ?)";
 			pstmt4 = conn.prepareStatement(sql4);
 			pstmt4.setString(1, vo.getTitle());
 			pstmt4.setString(2, vo.getContents());
