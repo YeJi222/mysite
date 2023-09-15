@@ -75,4 +75,4 @@ JOIN user t2 ON t1.user_no = t2.no
 ORDER BY g_no DESC, o_no ASC
 LIMIT 10, 15;
 
-
+SET time_zone='+09:00';

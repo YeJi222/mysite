@@ -18,6 +18,7 @@
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
 					<input type = "hidden" name = "a" value="write">
 					<input type = "hidden" name = "no" value="${param.no}">
+					<input type = "hidden" name = "pageNum" value="${param.pageNum}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>

@@ -19,6 +19,7 @@ public class WriteAction implements Action {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("content");
 		String no = request.getParameter("no");
+		String pageNum = request.getParameter("pageNum");
 		
 		HttpSession session = request.getSession(true);
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
@@ -44,6 +45,6 @@ public class WriteAction implements Action {
 		vo.setWriter(writer);
 		
 		new BoardDao().insert(vo);
-		response.sendRedirect(request.getContextPath() + "/board?pageNum=1");
+		response.sendRedirect(request.getContextPath() + "/board?pageNum=" + pageNum);
 	}
 }
