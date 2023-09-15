@@ -40,7 +40,6 @@
 					</fieldset>
 					
 					<input type="submit" value="가입하기">
-					
 				</form>
 			</div>
 		</div>

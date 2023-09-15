@@ -143,7 +143,6 @@ public class UserDao {
 				if(pstmt != null) {
 					pstmt.close();
 				}
-				
 				if(conn != null) {
 					conn.close();
 				}
@@ -174,7 +173,6 @@ public class UserDao {
 			
 			int count = pstmt.executeUpdate();
 			
-			//5. 결과 처리
 			result = count == 1;
 			
 		} catch (SQLException e) {
@@ -184,7 +182,6 @@ public class UserDao {
 				if(pstmt != null) {
 					pstmt.close();
 				}
-				
 				if(conn != null) {
 					conn.close();
 				}

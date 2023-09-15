@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.poscodx.mysite.dao.BoardDao;
-import com.poscodx.mysite.dao.GuestBookDao;
 import com.poscodx.mysite.vo.BoardVo;
-import com.poscodx.mysite.vo.GuestBookVo;
 import com.poscodx.web.mvc.Action;
 
 public class ModifyAction implements Action {

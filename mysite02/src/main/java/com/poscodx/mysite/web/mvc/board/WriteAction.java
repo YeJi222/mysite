@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.poscodx.mysite.dao.BoardDao;
-import com.poscodx.mysite.dao.GuestBookDao;
 import com.poscodx.mysite.vo.BoardVo;
-import com.poscodx.mysite.vo.GuestBookVo;
 import com.poscodx.mysite.vo.UserVo;
 import com.poscodx.web.mvc.Action;
 
@@ -44,8 +42,6 @@ public class WriteAction implements Action {
 		vo.setTitle(title);
 		vo.setContents(contents);
 		vo.setWriter(writer);
-		
-		// System.out.println("writeAction : " + vo);
 		
 		new BoardDao().insert(vo);
 		response.sendRedirect(request.getContextPath() + "/board?pageNum=1");

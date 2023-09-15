@@ -23,7 +23,6 @@ public class UpdateformAction implements Action {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
-		//////////////////////////////////////////////////////
 		
 		Long no = authUser.getNo();
 		UserVo userVo = new UserDao().getUserByNo(no);

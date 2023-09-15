@@ -35,7 +35,6 @@ public class GuestBookDao {
 				if(pstmt != null) {
 					pstmt.close();
 				}
-
 				if(conn != null) {
 					conn.close();
 				}
@@ -64,7 +63,6 @@ public class GuestBookDao {
 
 			int count = pstmt.executeUpdate();
 
-			//5. 결과 처리
 			result = count == 1;
 
 		} catch (SQLException e) {
@@ -74,7 +72,6 @@ public class GuestBookDao {
 				if(pstmt != null) {
 					pstmt.close();
 				}
-
 				if(conn != null) {
 					conn.close();
 				}
@@ -125,11 +122,9 @@ public class GuestBookDao {
 				if(rs != null) {
 					rs.close();
 				}
-
 				if(pstmt != null) {
 					pstmt.close();
 				}
-
 				if(conn != null) {
 					conn.close();
 				}

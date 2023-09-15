@@ -12,7 +12,6 @@ import com.poscodx.mysite.vo.GuestBookVo;
 import com.poscodx.web.mvc.Action;
 import com.poscodx.web.utils.WebUtil;
 
-
 public class ListAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

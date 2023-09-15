@@ -57,7 +57,7 @@
 					</c:forEach>
 				</table>
 				
-				<!-- pager 추가 -->
+				<!-- pager -->
 				<div class="pager">
 					<ul>
 						<c:if test="${pageInfo.prevBtn == true}">
@@ -79,12 +79,6 @@
 								</c:when>
 							</c:choose>
 						</c:forEach>
-						
-						<%-- <li><a href="${pageContext.request.contextPath }/board?pageNum=1">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="${pageContext.request.contextPath }/board?pageNum=3">3</a></li>
-						<li>4</li>
-						<li>5</li> --%>
 						
 						<c:if test="${pageInfo.nextBtn == true}">
 							<li><a href="${pageContext.request.contextPath }/board?pageNum=${pageInfo.curPageNo + 1}">▶</a></li>

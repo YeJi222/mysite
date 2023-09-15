@@ -32,16 +32,12 @@
 							    pageContext.setAttribute("br", "<br>"); 
 							%>
 							<div class="view-content">
-								<!-- 내용 1입니다.<br>
-								내용 2입니다.<br>
-								내용 3입니다. -->
 								<c:out value='${fn:replace(vo.contents, newline, br)}' escapeXml="false" />
 							</div>
 						</td>    
 					</tr>
 				</table>
 				<div class="bottom">
-					
 					<a href="${pageContext.request.contextPath }/board?pageNum=${param.pageNum}">글목록</a>
 					<c:if test="${authUser.name == vo.writer }">
 						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${vo.no}&pageNum=${param.pageNum}">글수정</a>

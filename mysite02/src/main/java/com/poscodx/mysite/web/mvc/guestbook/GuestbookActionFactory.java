@@ -1,6 +1,5 @@
 package com.poscodx.mysite.web.mvc.guestbook;
 
-
 import com.poscodx.web.mvc.Action;
 import com.poscodx.web.mvc.ActionFactory;
 
