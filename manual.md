@@ -74,13 +74,6 @@
    - 페이지가 끝난 경우, 다음 버튼 숨기기     
      <img width="166" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/807f1710-80f4-444a-b30d-3a35fcc28b5d">
 
-
-     
-
-
-
-
-
 3. 게시물 삭제
    - 작성자 게시글에만 삭제 버튼 생성   
    <img width="563" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/0de9ca77-f294-4d41-a3a5-3b5e63f23e3c">
@@ -110,14 +103,16 @@
    - 수정 버튼을 누르면 게시물 보기 페이지로 이동 후 변경 사항 확인 가능 
      <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/7e726a2b-2898-4218-be80-0d0c07186077">
 
-
-
-
-
-
-
-
-
-
-
 #### (방명록 관련 - guestbook)
+- 방명록은 로그인 없이도 이용 가능
+  <img width="695" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/18c440cb-80ba-4f0f-b7bf-0fd2539a82d3">
+
+- 방명록 작성 후, 확인 버튼 누르면 리스트에 추가
+  <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/d4571f9c-354c-476b-88fc-5b115ecdf855">
+
+- 삭제 버튼 누르면, 비밀번호 확인하는 삭제 페이지로 이동
+- 비밀번호가 일치하면 삭제후, 방명록 페이지로 이동하여 삭제 확인 가능   
+  <img width="561" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/f3deb379-a586-45bf-b0e5-b56722f924b2">
+
+
+
