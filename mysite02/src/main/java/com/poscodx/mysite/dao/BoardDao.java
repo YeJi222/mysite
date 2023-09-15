@@ -89,6 +89,9 @@ public class BoardDao {
 			System.out.println("Error:" + e);
 		} finally {
 			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
 				if(pstmt1 != null) {
 					pstmt1.close();
 				}
