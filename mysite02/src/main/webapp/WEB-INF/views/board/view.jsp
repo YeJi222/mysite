@@ -42,11 +42,11 @@
 				</table>
 				<div class="bottom">
 					
-					<a href="${pageContext.request.contextPath }/board">글목록</a>
+					<a href="${pageContext.request.contextPath }/board?pageNum=${param.pageNum}">글목록</a>
 					<c:if test="${authUser.name == vo.writer }">
-						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${vo.no}">글수정</a>
+						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${vo.no}&pageNum=${param.pageNum}">글수정</a>
 					</c:if>
-					<a href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no}">답글</a>
+					<a href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no}&pageNum=${param.pageNum}">답글</a>
 				</div>
 			</div>
 		</div>

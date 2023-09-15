@@ -42,7 +42,7 @@
 										<div></div>
 									</c:otherwise>
 								</c:choose>
-								<a href="${pageContext.request.contextPath }/board?a=viewform&no=${vo.no}">${vo.title }</a>
+								<a href="${pageContext.request.contextPath }/board?a=viewform&no=${vo.no}&pageNum=${param.pageNum}">${vo.title }</a>
 							</td>
 							<td>${vo.writer }</td> 
 							<td>${vo.hit }</td>
@@ -50,7 +50,7 @@
 							
 							<c:if test="${authUser.name == vo.writer }">
 								<td>
-									<a href="${pageContext.request.contextPath }/board?a=deleteform&no=${vo.no}" class="del">삭제</a>
+									<a href="${pageContext.request.contextPath }/board?a=deleteform&no=${vo.no}&pageNum=${pageInfo.curPageNo}" class="del">삭제</a>
 								</td>
 							</c:if>
 						</tr>
@@ -94,7 +94,7 @@
 				
 				<c:if test="${not empty authUser }">
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board?a=writeform&pageNum=${pageInfo.curPageNo}" id="new-book">글쓰기</a>
 					</div>				
 				</c:if>	
 			</div>

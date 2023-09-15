@@ -19,6 +19,7 @@ public class ModifyAction implements Action {
 		long no = Long.parseLong(request.getParameter("no"));
 		String title = request.getParameter("title");
 		String contents = request.getParameter("content");
+		String pageNum = request.getParameter("pageNum");
 		
 		BoardVo vo = new BoardVo();
 		vo.setNo(no);
@@ -26,6 +27,6 @@ public class ModifyAction implements Action {
 		vo.setContents(contents);
 		
 		new BoardDao().update(vo);
-		response.sendRedirect(request.getContextPath() + "/board?a=modifyform&no=" + no);
+		response.sendRedirect(request.getContextPath() + "/board?a=modifyform&no=" + no + "&pageNum=" + pageNum);
 	}
 }
