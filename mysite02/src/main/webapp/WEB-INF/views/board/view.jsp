@@ -42,7 +42,9 @@
 					<c:if test="${authUser.name == vo.writer }">
 						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${vo.no}&pageNum=${param.pageNum}">글수정</a>
 					</c:if>
-					<a href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no}&pageNum=${param.pageNum}">답글</a>
+					<c:if test="${not empty authUser }">
+						<a href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no}&pageNum=${param.pageNum}">답글</a>
+					</c:if>
 				</div>
 			</div>
 		</div>

@@ -23,28 +23,33 @@ public class WriteAction implements Action {
 		
 		HttpSession session = request.getSession(true);
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
-		Long user_no = userVo.getNo();
-		String writer = userVo.getName();
-		
-		// 새 글일 때 
-		BoardVo vo = new BoardVo();
-		if(no.isEmpty()) { // 새 글일 때 
-			vo.setNo(null);
-		} else { // 새 글이 아닐 때 
-			vo.setNo(Long.parseLong(no));
+		// 세션 만료 
+		if(userVo == null) {
+			response.sendRedirect(request.getContextPath() + "/user?a=noSession");
+		} else {
+			Long user_no = userVo.getNo();
+			String writer = userVo.getName();
 			
-			BoardVo boardVo = (BoardVo)new BoardDao().getInfoByNo(Long.parseLong(no));
-			vo.setHit(boardVo.getHit());
-			vo.setG_no(boardVo.getG_no());
-			vo.setO_no(boardVo.getO_no());
-			vo.setDepth(boardVo.getDepth());
+			// 새 글일 때 
+			BoardVo vo = new BoardVo();
+			if(no.isEmpty()) { // 새 글일 때 
+				vo.setNo(null);
+			} else { // 새 글이 아닐 때 
+				vo.setNo(Long.parseLong(no));
+				
+				BoardVo boardVo = (BoardVo)new BoardDao().getInfoByNo(Long.parseLong(no));
+				vo.setHit(boardVo.getHit());
+				vo.setG_no(boardVo.getG_no());
+				vo.setO_no(boardVo.getO_no());
+				vo.setDepth(boardVo.getDepth());
+			}
+			vo.setUser_no(user_no);
+			vo.setTitle(title);
+			vo.setContents(contents);
+			vo.setWriter(writer);
+			
+			new BoardDao().insert(vo);
+			response.sendRedirect(request.getContextPath() + "/board?pageNum=" + pageNum);
 		}
-		vo.setUser_no(user_no);
-		vo.setTitle(title);
-		vo.setContents(contents);
-		vo.setWriter(writer);
-		
-		new BoardDao().insert(vo);
-		response.sendRedirect(request.getContextPath() + "/board?pageNum=" + pageNum);
 	}
 }
