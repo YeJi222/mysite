@@ -59,6 +59,15 @@
    - 답글 계층형으로 나타냄   
      <img width="698" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/6a360bc8-0cea-4045-abf9-5506addcdc07">
 
+   - 로그인 세션이 풀린 경우 - 글목록 버튼만 보이게   
+     <img width="570" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/dc7c0ba8-6573-4fa0-b5d2-4a1bd478e2ea">
+
+   - 자신의 게시글이 아닌 경우 - 답글, 글목록 버튼 보이게   
+     <img width="567" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/877708bf-796a-4357-885e-8ff0fb7bb869">
+
+   - 자신의 게시글인 경우 - 답글, 글수정, 글목록 버튼 보이게    
+     <img width="569" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/b54bdfb0-1d74-4e99-a918-f934dec74178">
+
 2. 게시물 리스트
    - 로그인 전, 글쓰기 버튼 안보이게   
      <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/9e37df7d-acc9-4bff-a81e-79705e828a73">
