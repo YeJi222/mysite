@@ -38,6 +38,9 @@
    <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/74a0f462-1d10-44b0-b18a-025106b08748">
 
 #### (게시물 관련 - board)
+** 세션이 풀렸을 때, 로그인 상태여야 가능한 게시글 입력, 답글 입력, 게시글 삭제, 게시글 수정 불가 하도록 하기 -> 세션 만료 안내 페이지로 이동 ** 
+<img width="695" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/15cd8edc-7dff-4117-8cd7-2ae6521fa103">
+
 1. 게시물 입력
    - 글쓰기 폼 
    <img width="698" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/35bf48de-cc35-4768-825a-7d7e1c135324">
@@ -54,18 +57,19 @@
      <img width="578" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/2be1d81b-e999-43c9-a1d7-3906995d7f3e">
 
    - 답글 계층형으로 나타냄   
-     <img width="569" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/0fa67d97-aa38-4b48-acd2-ec1970f3ece8">
+     <img width="698" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/6a360bc8-0cea-4045-abf9-5506addcdc07">
 
 2. 게시물 리스트
    - 로그인 전, 글쓰기 버튼 안보이게   
-   <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/9e37df7d-acc9-4bff-a81e-79705e828a73">
+     <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/9e37df7d-acc9-4bff-a81e-79705e828a73">
 
    - 로그인 하면, 글쓰기 가능하도록   
      <img width="695" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/3be05e8e-7152-4f50-a3ac-fe23e2e4511f">
 
 2-1. 페이징 처리 
-   - 한 페이지 당, 8개 게시물 열람 가능
-     <img width="572" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/db28e07f-f13c-4259-86b2-5fcd8dcbca0d">
+   - 한 페이지 당, 8개 게시물 열람 가능   
+     <img width="573" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/476846d9-3df5-4928-94f9-f1c9376477d4">
+
    - 보여지는 페이지 개수는 5개씩, 이전 & 다음 페이지 버튼 눌러 이동 가능
    - 1페이지로 시작하는 경우, 이전 버튼 숨기기   
      <img width="162" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/650bd6e3-0ae9-41c6-9be4-e82deb50fc53">
@@ -104,7 +108,7 @@
      <img width="697" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/7e726a2b-2898-4218-be80-0d0c07186077">
 
 #### (방명록 관련 - guestbook)
-- 방명록은 로그인 없이도 이용 가능
+- 방명록은 로그인 없이도 이용 가능    
   <img width="695" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/18c440cb-80ba-4f0f-b7bf-0fd2539a82d3">
 
 - 방명록 작성 후, 확인 버튼 누르면 리스트에 추가
