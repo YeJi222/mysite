@@ -22,7 +22,7 @@
    - 회원가입 완료   
    <img width="698" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/c6c4a44b-c4a2-485b-aca0-c492c3c63b3b">
 2. 로그인
-   - 회원정보 등록 
+   - 로그인 정보 입력 
    <img width="699" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/6ec30ab2-8e97-4238-b251-a64a40731ecb">
 
    - 패스워드 틀린 경우 
