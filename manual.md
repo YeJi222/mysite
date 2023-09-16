@@ -11,7 +11,7 @@
    - VO : BoardVo, GuestBookVo, PageVo, UserVo   
      <img width="161" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/c785afae-bf11-42ee-9595-82703914c059">
 2. Action 클래스 구현 여부   
-   <img width="248" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/0641e6f1-77bf-4e30-9624-56ac4fbd058b">
+   <img width="249" alt="image" src="https://github.com/YeJi222/mysite/assets/70511859/005be488-b028-4077-b2a1-1d6083e03643">
 
 ### [구현 결과]
 #### (회원정보 관련 - user)
