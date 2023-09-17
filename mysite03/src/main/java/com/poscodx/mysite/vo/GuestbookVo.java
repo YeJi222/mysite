@@ -1,4 +1,4 @@
-package com.poscodx.guestbook.vo;
+package com.poscodx.mysite.vo;
 
 public class GuestbookVo {
 	private Long no;

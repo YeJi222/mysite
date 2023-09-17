@@ -1,4 +1,4 @@
-package com.poscodx.guestbook.repository;
+package com.poscodx.mysite.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.poscodx.guestbook.vo.GuestbookVo;
+import com.poscodx.mysite.vo.GuestbookVo;
 import org.springframework.stereotype.Repository;
 
 @Repository

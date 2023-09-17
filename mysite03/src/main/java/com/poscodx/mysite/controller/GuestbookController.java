@@ -1,7 +1,8 @@
-package com.poscodx.guestbook.controller;
+package com.poscodx.mysite.controller;
 
-import com.poscodx.guestbook.repository.GuestbookRepository;
-import com.poscodx.guestbook.vo.GuestbookVo;
+import com.poscodx.mysite.repository.GuestbookRepository;
+import com.poscodx.mysite.service.GuestbookService;
+import com.poscodx.mysite.vo.GuestbookVo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
