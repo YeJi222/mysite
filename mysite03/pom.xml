@@ -17,6 +17,20 @@
 	</properties>
 
 	<dependencies>
+		<!-- spring context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org-springframework-version}</version>
+		</dependency>
+
+		<!-- spring web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org-springframework-version}</version>
+		</dependency>
+
 		<!-- spring mvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
