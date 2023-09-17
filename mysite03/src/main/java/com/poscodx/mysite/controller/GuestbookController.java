@@ -1,6 +1,5 @@
 package com.poscodx.mysite.controller;
 
-import com.poscodx.mysite.repository.GuestbookRepository;
 import com.poscodx.mysite.service.GuestbookService;
 import com.poscodx.mysite.vo.GuestbookVo;
 import java.util.List;
@@ -14,23 +13,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/guestbook")
 public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
 
-	@RequestMapping("")
+	@RequestMapping({"", "/"})
 	public String main(Model model) {
 		List<GuestbookVo> list = guestbookService.getContentsList();
 		model.addAttribute("list", list);
-		return "guestbook/main";
+		
+		return "guestbook/list";
 	}
 
-//	@RequestMapping("/add") // add action
-//	public String add(GuestbookVo vo) {
-//		guestbookRepository.insert(vo);
-//		return "redirect:/";
-//	}
-//
+	/*
+	@RequestMapping("/add") // add action
+	public String add(GuestbookVo vo) {
+		System.out.println("test");
+		
+		guestbookService.addContents(vo);
+		return "redirect:/";
+	}
+	*/
+	
+	@RequestMapping("add")
+	public String add(GuestbookVo vo) {
+		guestbookService.addContents(vo);
+		return "redirect:/guestbook";
+	}
+
 //	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET) // delete form
 //	public String delete(@PathVariable("no") Long no, Model model) {
 //		model.addAttribute("no", no);

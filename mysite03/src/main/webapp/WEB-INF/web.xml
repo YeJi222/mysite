@@ -41,6 +41,7 @@
   </servlet-mapping>
   
   <!-- error processing -->
+  <!--  
 	<error-page>
 	    <exception-type>java.lang.Throwable</exception-type>
 	    <location>/error/errorPage.jsp</location>
@@ -73,6 +74,7 @@
 	  	<error-code>503</error-code>
 	  	<location>/WEB-INF/error/errorPage.jsp</location>
 	</error-page>
+	-->
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
