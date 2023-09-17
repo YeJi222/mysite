@@ -25,16 +25,6 @@ public class GuestbookController {
 		
 		return "guestbook/list";
 	}
-
-	/*
-	@RequestMapping("/add") // add action
-	public String add(GuestbookVo vo) {
-		System.out.println("test");
-		
-		guestbookService.addContents(vo);
-		return "redirect:/";
-	}
-	*/
 	
 	@RequestMapping("add")
 	public String add(GuestbookVo vo) {
@@ -42,15 +32,20 @@ public class GuestbookController {
 		return "redirect:/guestbook";
 	}
 
-//	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET) // delete form
-//	public String delete(@PathVariable("no") Long no, Model model) {
-//		model.addAttribute("no", no);
-//		return "delete";
-//	}
-//
-//	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST) // delete action
-//	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
-//		guestbookRepository.deleteByNoAndPassword(no, password);
-//		return "redirect:/";
-//	}
+	@RequestMapping(value="/deleteform/{no}", method=RequestMethod.GET) // delete form
+	public String delete(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("no", no);
+		return "guestbook/deleteform";
+	}
+
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST) // delete action
+	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
+		boolean result = guestbookService.deleteContents(no, password);
+	
+		if(result) { // 비밀번호 일치 - 삭제 성공 
+			return "redirect:/guestbook";
+		} else { // 비밀번호불일치 - 삭제 실패 
+			return "redirect:/guestbook/deleteform/" + no;
+		}	
+	}
 }
