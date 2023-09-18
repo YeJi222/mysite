@@ -76,3 +76,7 @@ ORDER BY g_no DESC, o_no ASC
 LIMIT 10, 15;
 
 SET time_zone='+09:00';
+
+select no, name, contents, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate
+from guestbook
+order by reg_date desc;

@@ -18,7 +18,9 @@ public class UserService {
 	//private MailSender mailSender;
 	
 	public void join(UserVo vo) {
+		System.out.println(vo);
 		userRepository.insert(vo);
+		System.out.println(vo);
 		// mailSender.send(vo.getEmail(), "", "");
 	}
 
@@ -37,16 +39,4 @@ public class UserService {
 	public void update(UserVo userVo) {
 		userRepository.update(userVo);
 	}
-
-//	public List<UserVo> getContentsList() {
-//		return userRepository.findAll();
-//	}
-//	
-//	public Boolean deleteContents(Long no, String password) {
-//		return userRepository.deleteByNoAndPassword(no, password);
-//	}
-//	
-//	public Boolean addContents(GuestbookVo vo) { 
-//		return userRepository.insert(vo);
-//	}
 }

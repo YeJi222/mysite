@@ -67,7 +67,7 @@
 				<div class="pager">
 					<ul>
 						<c:if test="${pageInfo.prevBtn == true}">
-							<li><a href="${pageContext.request.contextPath }/board?pageNum=${pageInfo.curPageNo - 1}">◀</a></li>
+							<li><a href="${pageContext.request.contextPath }/board/${pageInfo.curPageNo - 1}">◀</a></li>
 						</c:if>
 						
 						<c:forEach var="pageNo" begin="${pageInfo.startPageNo }" end="${pageInfo.endPageNo }">
@@ -77,7 +77,7 @@
 								</c:when>
 								
 								<c:when test="${pageNo != pageInfo.curPageNo}">
-									<li><a href="${pageContext.request.contextPath }/board?pageNum=${pageNo }">${pageNo }</a></li>
+									<li><a href="${pageContext.request.contextPath }/board/${pageNo }">${pageNo }</a></li>
 								</c:when>
 								
 								<c:when test="${pageNo == pageInfo.curPageNo}">
@@ -87,7 +87,7 @@
 						</c:forEach>
 						
 						<c:if test="${pageInfo.nextBtn == true}">
-							<li><a href="${pageContext.request.contextPath }/board?pageNum=${pageInfo.curPageNo + 1}">▶</a></li>
+							<li><a href="${pageContext.request.contextPath }/board/${pageInfo.curPageNo + 1}">▶</a></li>
 						</c:if>
 					</ul>
 				</div>					
