@@ -28,7 +28,15 @@ public class UserService {
 		return authUser;
 	}
 
-	
+	public UserVo getUser(Long no) {
+		UserVo authUser = userRepository.findByNo(no);
+		
+		return authUser;
+	}
+
+	public void update(UserVo userVo) {
+		userRepository.update(userVo);
+	}
 
 //	public List<UserVo> getContentsList() {
 //		return userRepository.findAll();

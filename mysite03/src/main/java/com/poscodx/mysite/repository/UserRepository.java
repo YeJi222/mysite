@@ -12,7 +12,7 @@ import com.poscodx.mysite.vo.UserVo;
 
 @Repository
 public class UserRepository {
-	public UserVo getUserByNo(long no) {
+	public UserVo findByNo(long no) {
 		UserVo userVo = null;
 		
 		Connection conn = null;
@@ -114,7 +114,7 @@ public class UserRepository {
 		return userVo;
 	}
 	
-	public void updateUserInfo(UserVo vo) {
+	public void update(UserVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
