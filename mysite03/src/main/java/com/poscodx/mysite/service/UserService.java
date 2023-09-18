@@ -13,11 +13,17 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	public void addUser(UserVo vo) {
+		userRepository.insert(vo);
+	}
 
 	public boolean loginAction(String email, String password) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
+
+	
 
 //	public List<UserVo> getContentsList() {
 //		return userRepository.findAll();

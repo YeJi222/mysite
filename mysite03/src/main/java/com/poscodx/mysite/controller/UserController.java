@@ -19,9 +19,29 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value="/loginform", method=RequestMethod.GET) // login form
-	public String login() {
-		return "user/loginform";
+	/////////// join ///////////
+	@RequestMapping(value="/join", method=RequestMethod.GET) 
+	public String join() { // join form
+		return "user/join"; 
+	}
+	
+	@RequestMapping(value="/join", method=RequestMethod.POST) 
+	public String join(UserVo vo) { // join action
+		System.out.println(vo);
+		userService.addUser(vo);
+		
+		return "redirect:/user/joinsuccess"; 
+	}
+	
+	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET) 
+	public String joinsuccess() { // joinsuccess form
+		return "user/joinsuccess"; 
+	}
+	
+	/////////// login ///////////
+	@RequestMapping(value="/login", method=RequestMethod.GET) 
+	public String login() { // login form
+		return "user/login"; 
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST) // login action
