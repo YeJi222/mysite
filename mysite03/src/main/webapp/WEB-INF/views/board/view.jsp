@@ -2,6 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    // fn:replace 안에 '\' 사용불가 
+    pageContext.setAttribute("newline", "\r\n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,25 +29,20 @@
 					</tr>
 					<tr>
 						<td class="label">내용</td>
-						<td>
-							<%
-							    // fn:replace 안에 '\' 사용불가 
-							    pageContext.setAttribute("newline", "\r\n"); 
-							    pageContext.setAttribute("br", "<br>"); 
-							%>
+						<td>		
 							<div class="view-content">
-								<c:out value='${fn:replace(vo.contents, newline, br)}' escapeXml="false" />
+								${fn:replace(vo.contents, newline, "<br>")}
 							</div>
 						</td>    
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?pageNum=${param.pageNum}">글목록</a>
+					<a href="${pageContext.request.contextPath }/board/${pageNum}">글목록</a>
 					<c:if test="${authUser.name == vo.writer }">
-						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${vo.no}&pageNum=${param.pageNum}">글수정</a>
+						<a href="${pageContext.request.contextPath }/board/modifyform/${vo.no}/${pageNum}">글수정</a>
 					</c:if>
 					<c:if test="${not empty authUser }">
-						<a href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no}&pageNum=${param.pageNum}">답글</a>
+						<a href="${pageContext.request.contextPath }/board/writeform/${vo.no}/${pageNum}">답글</a>
 					</c:if>
 				</div>
 			</div>

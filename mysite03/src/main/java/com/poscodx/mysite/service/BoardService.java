@@ -9,6 +9,7 @@ import com.poscodx.mysite.repository.BoardRepository;
 import com.poscodx.mysite.repository.GuestbookRepository;
 import com.poscodx.mysite.vo.BoardVo;
 import com.poscodx.mysite.vo.PageVo;
+import com.poscodx.mysite.vo.UserVo;
 
 @Service
 public class BoardService {
@@ -46,8 +47,45 @@ public class BoardService {
 	public boolean deletePost(Long no, String password) {
 		return boardRepository.deleteByNoAndPassword(no, password);
 	}
-	
-	
+
+	public BoardVo getPost(Long no) {
+		return boardRepository.getInfoByNo(no);
+	}
+
+	public boolean insert(BoardVo vo) {
+		return boardRepository.insert(vo);
+	}
+
+	public BoardVo getBoardVoForWrite(Long no, UserVo authUser, String title, String content) {
+		BoardVo vo = new BoardVo();
+		if(no == 0) { // 새 글일 때 
+			vo.setNo(null);
+		} else { // 새 글이 아닐 때 
+			vo.setNo(no);
+			
+			BoardVo boardVo = getPost(no);
+			vo.setHit(boardVo.getHit());
+			vo.setG_no(boardVo.getG_no());
+			vo.setO_no(boardVo.getO_no());
+			vo.setDepth(boardVo.getDepth());
+		}
+		vo.setUser_no(authUser.getNo());
+		vo.setTitle(title);
+		vo.setContents(content);
+		vo.setWriter(authUser.getName());
+		
+		return vo;
+	}
+
+	public void update(Long no, BoardVo boardVo) {
+		BoardVo vo = new BoardVo();
+		vo.setNo(no);
+		vo.setTitle(boardVo.getTitle());
+		vo.setContents(boardVo.getContents());
+		
+		boardRepository.update(vo);
+	}
+
 	
 	
 	
