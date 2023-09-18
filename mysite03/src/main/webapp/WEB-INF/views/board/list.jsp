@@ -51,7 +51,7 @@
 							<c:choose>
 								<c:when test="${authUser.name == vo.writer }">
 									<td>
-										<a href="${pageContext.request.contextPath }/board?a=deleteform&no=${vo.no}&pageNum=${pageInfo.curPageNo}" class="del">삭제</a>
+										<a href="${pageContext.request.contextPath }/board/deleteform/${vo.no}/${pageInfo.curPageNo}" class="del">삭제</a>
 									</td>
 								</c:when>
 								
@@ -94,7 +94,7 @@
 				
 				<c:if test="${not empty authUser }">
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board?a=writeform&pageNum=${pageInfo.curPageNo}" id="new-book">글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board/write/${pageInfo.curPageNo}" id="new-book">글쓰기</a>
 					</div>				
 				</c:if>	
 			</div>

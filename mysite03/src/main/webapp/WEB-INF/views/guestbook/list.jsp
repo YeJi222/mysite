@@ -16,7 +16,6 @@
 		<div id="content">
 			<div id="guestbook">
 				<form action="${pageContext.request.contextPath }/guestbook/add" method="post">
-					<input type="hidden" name="a" value="add">
 					<table>
 						<tr>
 							<td>이름</td><td><input type="text" name="name"></td>

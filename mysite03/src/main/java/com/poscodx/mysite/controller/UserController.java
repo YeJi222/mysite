@@ -102,4 +102,9 @@ public class UserController {
 		
 		return "redirect:/user/update";
 	}
+	
+	@RequestMapping(value="/noSession", method=RequestMethod.GET)
+	public String noSession() {
+		return "user/noSession";
+	}
 }

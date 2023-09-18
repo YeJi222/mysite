@@ -17,7 +17,7 @@
 				<p class="jr-success">
 					세션이 종료되었습니다. 다시 로그인하세요.
 					<br><br>
-					<a href="${pageContext.request.contextPath }/user?a=loginform">로그인하기</a>
+					<a href="${pageContext.request.contextPath }/user/login">로그인하기</a>
 				</p>				
 			</div>
 		</div>

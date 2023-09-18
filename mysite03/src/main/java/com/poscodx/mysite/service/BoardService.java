@@ -42,5 +42,13 @@ public class BoardService {
 	public List<BoardVo> getPostList(PageVo pageVo) {
 		return boardRepository.pagePostList(pageVo);
 	}
+
+	public boolean deletePost(Long no, String password) {
+		return boardRepository.deleteByNoAndPassword(no, password);
+	}
+	
+	
+	
+	
 	
 }
