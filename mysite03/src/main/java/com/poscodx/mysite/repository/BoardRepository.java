@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,10 @@ import com.poscodx.mysite.vo.PageVo;
 @Repository
 public class BoardRepository {
 	@Autowired
-	private DataSource dataSoruce;
+	private SqlSession sqlSession;
+	
+	@Autowired
+	private DataSource dataSource;
 
 	public Boolean insert(BoardVo vo) {
 		boolean result = false;
@@ -34,7 +38,7 @@ public class BoardRepository {
 		ResultSet rs2 = null;
 
 		try {
-			conn = dataSoruce.getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql1 = "select count(*) from board;";
 			
@@ -129,191 +133,16 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public List<BoardVo> findAll() {
-		List<BoardVo> result = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = dataSoruce.getConnection();
-
-			String sql =
-				"select board.no, title, contents, hit," +
-				" date_format(reg_date, '%Y-%m-%d %H:%i:%s')," + 
-				" g_no, o_no, depth, name" + 
-				" from board join user where user.no = board.user_no" + 
-				" order by g_no desc, o_no asc;";
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String contents = rs.getString(3);
-				Long hit = rs.getLong(4);
-				String regDate = rs.getString(5);
-				Long g_no = rs.getLong(6);
-				Long o_no = rs.getLong(7);
-				Long depth = rs.getLong(8);
-				String writer = rs.getString(9);
-				
-				BoardVo vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setContents(contents);
-				vo.setHit(hit);
-				vo.setRegDate(regDate);
-				vo.setG_no(g_no);
-				vo.setO_no(o_no);
-				vo.setDepth(depth);
-				vo.setWriter(writer);
-
-				result.add(vo);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-
-				if(pstmt != null) {
-					pstmt.close();
-				}
-
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
-
-		return result;
-	}
-	
 	public BoardVo getInfoByNo(long no) {
-		BoardVo boardVo = null;
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = dataSoruce.getConnection();
-			
-			String sql =
-					"select title, contents, hit, g_no, o_no, depth, user_no, user.name"
-					+ " from board join user" +
-					" where board.user_no = user.no and board.no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, no); 
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				String title = rs.getString(1);
-				String contents = rs.getString(2);
-				Long hit = rs.getLong(3);
-				Long g_no = rs.getLong(4);
-				Long o_no = rs.getLong(5);
-				Long depth = rs.getLong(6);
-				Long user_no = rs.getLong(7);
-				String writer = rs.getString(8);
-				
-				boardVo = new BoardVo();
-				boardVo.setNo(no);
-				boardVo.setTitle(title);
-				boardVo.setContents(contents);
-				boardVo.setHit(hit);
-				boardVo.setG_no(g_no);
-				boardVo.setO_no(o_no);
-				boardVo.setDepth(depth);
-				boardVo.setUser_no(user_no);
-				boardVo.setWriter(writer);
-			}
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(rs != null) {
-					rs.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return boardVo;
+		return sqlSession.selectOne("board.findByNo", no);
 	}
 	
 	public void update(BoardVo vo) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = dataSoruce.getConnection();
-			
-			String sql = "update board set title=?, contents=? where no=?";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContents());
-			pstmt.setLong(3, vo.getNo());
-			
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		sqlSession.update("board.update", vo);
 	}
 	
 	public void addHit(long no) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = dataSoruce.getConnection();
-			
-			String sql = "update board set hit=hit+1 where no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, no);
-			
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		sqlSession.update("board.addHit", no);
 	}
 	
 	public boolean deleteByNoAndPassword(Long no, String password) {
@@ -325,7 +154,7 @@ public class BoardRepository {
 		ResultSet rs = null;
 
 		try {
-			conn = dataSoruce.getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql1 = "select count(*) from user join board"
 					+ " where user.no = board.user_no and"
@@ -378,29 +207,7 @@ public class BoardRepository {
 	}
 	
 	public int getTotalPost() {
-		int totalPost = 0;
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = dataSoruce.getConnection();
-			
-			String sql =
-					"select count(*) from board";
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				totalPost = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return totalPost;
+		return sqlSession.selectOne("board.getTotalPost");
 	}
 	
 	public List<BoardVo> pagePostList(PageVo pageVo) {
@@ -411,7 +218,7 @@ public class BoardRepository {
 		ResultSet rs = null;
 
 		try {
-			conn = dataSoruce.getConnection();
+			conn = dataSource.getConnection();
 
 			String sql =
 				"SELECT t1.*, t2.name"
