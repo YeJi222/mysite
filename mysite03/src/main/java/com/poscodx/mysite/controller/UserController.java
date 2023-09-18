@@ -2,6 +2,8 @@ package com.poscodx.mysite.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,7 @@ public class UserController {
 	@RequestMapping(value="/join", method=RequestMethod.POST) 
 	public String join(UserVo vo) { // join action
 		System.out.println(vo);
-		userService.addUser(vo);
+		userService.join(vo);
 		
 		return "redirect:/user/joinsuccess"; 
 	}
@@ -45,40 +47,40 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST) // login action
-	public String login(Model model,
+	public String login(Model model, HttpSession session, 
 			@RequestParam(value="email", required=true, defaultValue="") String email,
 			@RequestParam(value="password", required=true, defaultValue="") String password) {
-		boolean result = userService.loginAction(email, password);
-	
-		if(result) { // 로그인 성공 
-			return "redirect:/";
-		} else { // 로그인 실패 
-			model.addAttribute("email", email);
-			return "redirect:/user/loginform";
-		}	
-	}
-
-	/*
-	@RequestMapping({"", "/"})
-	public String main(Model model) {
-		List<GuestbookVo> list = guestbookService.getContentsList();
-		model.addAttribute("list", list);
 		
-		return "guestbook/list";
-	}
+		UserVo authUser = userService.getUser(email, password);
+		if(authUser == null) { // 로그인 실패 
+			model.addAttribute("email", email);
+			return "user/login";
+		}
 	
-	@RequestMapping("add")
-	public String add(GuestbookVo vo) {
-		guestbookService.addContents(vo);
-		return "redirect:/guestbook";
+		/* 인증 처리 */
+		session.setAttribute("authUser", authUser);
+		
+		return "redirect:/";
 	}
 
-	@RequestMapping(value="/deleteform/{no}", method=RequestMethod.GET) // delete form
-	public String delete(@PathVariable("no") Long no, Model model) {
-		model.addAttribute("no", no);
-		return "guestbook/deleteform";
+	/////////// logout ///////////
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("authUser");
+		session.invalidate();
+		
+		return "redirect:/";
 	}
-
 	
-	*/
+	@RequestMapping("/update")
+	public String update(HttpSession session) {
+		// Access Control(접근 제어) 
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/user/login";
+		}
+		///////////////////////////////////////////////////
+		
+		return "user/update";
+	}
 }

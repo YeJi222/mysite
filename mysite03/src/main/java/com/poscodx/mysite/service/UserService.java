@@ -14,13 +14,18 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public void addUser(UserVo vo) {
+	// @Autowired
+	//private MailSender mailSender;
+	
+	public void join(UserVo vo) {
 		userRepository.insert(vo);
+		// mailSender.send(vo.getEmail(), "", "");
 	}
 
-	public boolean loginAction(String email, String password) {
-
-		return false;
+	public UserVo getUser(String email, String password) {
+		UserVo authUser = userRepository.findByEmailAndPassword(email, password);
+		
+		return authUser;
 	}
 
 	
