@@ -1,92 +1,94 @@
 package com.poscodx.mysite.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poscodx.mysite.repository.BoardRepository;
-import com.poscodx.mysite.repository.GuestbookRepository;
 import com.poscodx.mysite.vo.BoardVo;
-import com.poscodx.mysite.vo.PageVo;
-import com.poscodx.mysite.vo.UserVo;
 
 @Service
 public class BoardService {
+	private static final int LIST_SIZE = 8; // 한 페이지 당 게시물의 수 
+	private static final int PAGE_SIZE = 5; // 네비게이션에 보이는 페이지 수 
+	
 	@Autowired
 	private BoardRepository boardRepository;
-
-	public PageVo getPageVo(int curPageNo) {
-		int totalPost = boardRepository.getTotalPost(); // 총 게시글 개수 
-		int postSize = 8; // 한 페이지당 보여지는 게시글 개수 
-		int pageSize = 5; // 보여지는 페이지(페이지 네비게이션) 개수 
-		
-		int totalPageNo = (totalPost - 1) / postSize + 1; // 페이지 총 개수(마지막으로 보여질 페이지 no)
-		int endPageNo = (int) (Math.ceil((double)curPageNo / pageSize) * pageSize); // 보이는 끝 페이지 
-		int startPageNo = endPageNo - pageSize + 1; // 보이는 첫 페이지 
-		
-		boolean prevBtn = true;
-		boolean nextBtn = true;
-		if(startPageNo == 1) { // startPageNo가 1부터 시작하면 이전 버튼 안보이게 
-			prevBtn = false;
-		}
-		if(totalPageNo <= endPageNo) { // totalPageNo가 끝이면 다음 버튼 안보이게 
-			nextBtn = false; 
-		}
-		
-		PageVo pageVo = 
-				new PageVo(curPageNo, totalPost, postSize, pageSize, totalPageNo, endPageNo, startPageNo, prevBtn, nextBtn);
-		
-		return pageVo;
-	}
-
-	public List<BoardVo> getPostList(PageVo pageVo) {
-		return boardRepository.pagePostList(pageVo);
-	}
-
-	public boolean deletePost(Long no, String password) {
-		return boardRepository.deleteByNoAndPassword(no, password);
-	}
-
-	public BoardVo getPost(Long no) {
-		return boardRepository.getInfoByNo(no);
-	}
-
-	public boolean addPost(BoardVo vo) {
-		return boardRepository.insert(vo);
-	}
-
-	public BoardVo getBoardVoForWrite(Long no, UserVo authUser, String title, String content) {
-		BoardVo vo = new BoardVo();
-		if(no == 0) { // 새 글일 때 
-			vo.setNo(null);
-		} else { // 새 글이 아닐 때 
-			vo.setNo(no);
-			
-			BoardVo boardVo = getPost(no);
-			vo.setHit(boardVo.getHit());
-			vo.setG_no(boardVo.getG_no());
-			vo.setO_no(boardVo.getO_no());
-			vo.setDepth(boardVo.getDepth());
-		}
-		vo.setUser_no(authUser.getNo());
-		vo.setTitle(title);
-		vo.setContents(content);
-		vo.setWriter(authUser.getName());
-		
-		return vo;
-	}
-
-	public void update(Long no, BoardVo boardVo) {
-		BoardVo vo = new BoardVo();
-		vo.setNo(no);
-		vo.setTitle(boardVo.getTitle());
-		vo.setContents(boardVo.getContents());
-		
-		boardRepository.update(vo);
-	}
-
 	
-	
-	
+	public Map<String, Object> getContentsList(int currentPage, String keyword) {
+		
+		int totalCount = boardRepository.getTotalCount(keyword); // 게시물 총 수 
+		int pageCount = (int)Math.ceil((double)totalCount / LIST_SIZE); // 페이지 총 개수 
+		int blockCount = (int)Math.ceil((double)pageCount / PAGE_SIZE); 
+		int currentBlock = (int)Math.ceil((double)currentPage / PAGE_SIZE); 
+		
+		// 파라미터 page 값  검증
+		if(currentPage > pageCount) {
+			currentPage = pageCount;
+			currentBlock = (int)Math.ceil((double)currentPage / PAGE_SIZE);
+		}		
+		
+		if(currentPage < 1) {
+			currentPage = 1;
+			currentBlock = 1;
+		}
+		
+		// view에서 페이지 리스트를 렌더링 하기위한 데이터 값 계산
+		int beginPage = currentBlock == 0 ? 1 : (currentBlock - 1) * PAGE_SIZE + 1;
+		int prevPage = (currentBlock > 1 ) ? (currentBlock - 1) * PAGE_SIZE : 0;
+		int nextPage = (currentBlock < blockCount) ? currentBlock * PAGE_SIZE + 1 : 0;
+		int endPage = (nextPage > 0) ? (beginPage - 1) + LIST_SIZE : pageCount;
+		
+		// 리스트 가져오기
+		List<BoardVo> list = boardRepository.findAllByPageAndKeword(keyword, currentPage, LIST_SIZE);
+		
+		// 리스트 정보를 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+		map.put("listSize", LIST_SIZE);
+		map.put("currentPage", currentPage);
+		map.put("beginPage", beginPage);
+		map.put("endPage", endPage);
+		map.put("prevPage", prevPage);
+		map.put("nextPage", nextPage);
+		map.put("keyword", keyword);
+
+		return map;
+	}
+
+	public BoardVo getContents(Long no) {
+		BoardVo boardVo = boardRepository.findByNo(no);
+		
+		if(boardVo != null) {
+			boardRepository.updateHit(no);
+		}
+		
+		return boardVo;
+	}
+
+	public void deleteContents(Long boardNo, Long userNo) {
+		boardRepository.delete(boardNo, userNo);
+	}
+
+	public BoardVo getContents(Long no, Long userNo) {
+		BoardVo boardVo = boardRepository.findByNoAndUserNo(no, userNo);
+		return boardVo;
+	}
+
+	public void modifyContents(BoardVo boardVo) {
+		boardRepository.update(boardVo);
+	}
+
+	public void addContents(BoardVo boardVo) {
+		if(boardVo.getGroupNo() != null) { // 답글 달기 
+			boardRepository.updateOrderNo(boardVo.getGroupNo(), boardVo.getOrderNo());
+		}
+		
+		boardRepository.insert(boardVo); // 새 글 쓰기 
+	}	
 }
