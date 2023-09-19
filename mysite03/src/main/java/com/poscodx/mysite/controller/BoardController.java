@@ -61,7 +61,7 @@ public class BoardController {
 		}
 		
 		BoardVo vo = boardService.getBoardVoForWrite(no, authUser, title, content);
-		boardService.insert(vo);
+		boardService.addPost(vo);
 		
 		return "redirect:/board/" + pageNum;	
 	}

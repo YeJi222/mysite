@@ -24,7 +24,7 @@ public class BoardRepository {
 	
 	@Autowired
 	private DataSource dataSource;
-
+ 
 	public Boolean insert(BoardVo vo) {
 		boolean result = false;
 

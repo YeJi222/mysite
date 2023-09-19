@@ -52,7 +52,7 @@ public class BoardService {
 		return boardRepository.getInfoByNo(no);
 	}
 
-	public boolean insert(BoardVo vo) {
+	public boolean addPost(BoardVo vo) {
 		return boardRepository.insert(vo);
 	}
 

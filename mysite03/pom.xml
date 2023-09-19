@@ -23,6 +23,13 @@
 			<artifactId>spring-context</artifactId>
 			<version>${org-springframework-version}</version>
 		</dependency>
+		
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org-springframework-version}</version>
+		</dependency>
 
 		<!-- spring web -->
 		<dependency>
