@@ -130,7 +130,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify/{no}/{pageNum}", method=RequestMethod.POST)
-	public String update(HttpSession session, BoardVo boardVo,
+	public String update(HttpSession session, BoardVo boardVo, Model model,
 			@PathVariable("no") Long no, @PathVariable("pageNum") String pageNum) {
 		// Access Control(접근 제어) 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");

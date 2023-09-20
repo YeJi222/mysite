@@ -19,8 +19,8 @@
 	<update id="update" parameterType="boardvo">
 		<![CDATA[
 			update board 
-				set title = #{vo.getTitle() }, contents = #{vo.getContents() } 
-			where no = #{vo.getNo() }
+				set title = #{title }, contents = #{contents } 
+			where no = #{no }
 		]]>
 	</update>
 	

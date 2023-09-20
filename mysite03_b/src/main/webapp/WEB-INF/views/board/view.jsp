@@ -38,7 +38,7 @@
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board/${pageNum}">글목록</a>
-					<c:if test="${authUser.name == vo.writer }">
+					<c:if test="${not empty authUser }">
 						<a href="${pageContext.request.contextPath }/board/modifyform/${vo.no}/${pageNum}">글수정</a>
 					</c:if>
 					<c:if test="${not empty authUser }">
