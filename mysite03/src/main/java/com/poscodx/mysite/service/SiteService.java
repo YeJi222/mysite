@@ -10,12 +10,13 @@ import com.poscodx.mysite.vo.SiteVo;
 public class SiteService {
 	
 	@Autowired
-	private SiteRepository repository;
+	private SiteRepository siteRepository;
 	
 	public SiteVo getSite() {
-		return null;
+		return siteRepository.find();
 	}
 	
-	public void UpdateSite(SiteVo vo) {
+	public void updateSite(SiteVo vo) {
+		siteRepository.update(vo);
 	}
 }
