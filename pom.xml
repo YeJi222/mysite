@@ -8,6 +8,7 @@
   <modules>
   	<module>mysite02</module>
   	<module>mysite03</module>
+  	<module>mysite03_b</module>
   </modules>
   
   <build> 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="getInfoByNo" resultType="boardvo" parameterType="long">
+		<![CDATA[
+			select board.no, title, contents, hit, g_no, o_no, depth, user_no, user.name
+				from board join user
+			where board.user_no = user.no and board.no = #{no }
+		]]>
+	</select>
+	
+	<select id="getTotalPost" resultType="int">
+		<![CDATA[
+			select count(*) from board
+		]]> 
+	</select>
+	
+	<update id="update" parameterType="boardvo">
+		<![CDATA[
+			update board 
+				set title = #{vo.getTitle() }, contents = #{vo.getContents() } 
+			where no = #{vo.getNo() }
+		]]>
+	</update>
+	
+	<update id="addHit" parameterType="long">
+		<![CDATA[
+			update board set hit=hit+1 where no = #{no }
+		]]>
+	</update>
+</mapper>
