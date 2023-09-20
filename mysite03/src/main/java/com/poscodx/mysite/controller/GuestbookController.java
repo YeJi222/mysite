@@ -1,5 +1,6 @@
 package com.poscodx.mysite.controller;
 
+import com.poscodx.mysite.security.Auth;
 import com.poscodx.mysite.service.GuestbookService;
 import com.poscodx.mysite.vo.GuestbookVo;
 import java.util.List;
@@ -18,12 +19,11 @@ public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
 
-	@RequestMapping({"", "/"})
+	@RequestMapping("")
 	public String main(Model model) {
 		List<GuestbookVo> list = guestbookService.getContentsList();
 		model.addAttribute("list", list);
-		
-		return "guestbook/list";
+		return "guestbook/main";
 	}
 	
 	@RequestMapping("add")
@@ -35,7 +35,7 @@ public class GuestbookController {
 	@RequestMapping(value="/deleteform/{no}", method=RequestMethod.GET) // delete form
 	public String delete(@PathVariable("no") Long no, Model model) {
 		model.addAttribute("no", no);
-		return "guestbook/deleteform";
+		return "guestbook/delete";
 	}
 
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST) // delete action

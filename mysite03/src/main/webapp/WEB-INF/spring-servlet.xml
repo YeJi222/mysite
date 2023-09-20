@@ -12,14 +12,20 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- auto proxy -->
 	<aop:aspectj-autoproxy />
-	
+
 	<!-- 
 		Validator
 		Default Servlet Handler
 		Message Converter
 		Argument Resolver
 	 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+	
+		<!-- Argument Resolvers -->
+		<mvc:argument-resolvers>
+			<bean class="com.poscodx.mysite.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
 
 	<!-- Default Servlet Handler -->
 	<mvc:default-servlet-handler/>
@@ -27,15 +33,22 @@
 	<!-- Interceptors -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/user/login"/>
+			<mvc:mapping path="/user/auth"/>
 			<bean class="com.poscodx.mysite.security.LoginInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/logout"/>
 			<bean class="com.poscodx.mysite.security.LogoutInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/user/auth" />
+			<mvc:exclude-mapping path="/user/logout" />
+			<bean class="com.poscodx.mysite.security.AuthInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
-
+	
 	<!-- View Resolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
