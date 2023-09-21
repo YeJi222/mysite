@@ -8,7 +8,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,8 +20,6 @@ public class GlobalExceptionHandler {
 		e.printStackTrace(new PrintWriter(errors));
 		// System.out.println(errors.toString());
 		logger.error(errors.toString());
-		
-		System.out.println("====test====");
 		
 		//2. 사과 페이지
 		model.addAttribute("errors", errors.toString());
