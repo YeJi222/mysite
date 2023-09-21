@@ -80,3 +80,5 @@ SET time_zone='+09:00';
 select no, name, contents, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate
 from guestbook
 order by reg_date desc;
+
+insert into user values (null, '관리자', 'admin@mysite.com', password('1234'), 'female', current_date(), 'ADMIN');

@@ -52,10 +52,10 @@
 	<!-- View Resolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-	   <property name="prefix" value="/WEB-INF/views/" />
+	   <property name="prefix" value="/WEB-INF/views/" />      
 	   <property name="suffix" value=".jsp" />
 	</bean>
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.poscodx.mysite.controller, com.poscodx.mysite.exception" />
+	<context:component-scan base-package="com.poscodx.mysite.controller" />
 </beans>
