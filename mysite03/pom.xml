@@ -19,28 +19,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- spring context -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${org-springframework-version}</version>
-		</dependency>
-		
-		<!-- spring aspect -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aspects</artifactId>
-			<version>${org-springframework-version}</version>
-		</dependency>
-
-		<!-- spring web -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${org-springframework-version}</version>
-		</dependency>
-
-		<!-- spring mvc -->
+	<!-- spring mvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -51,7 +30,14 @@
 				  <groupId>org.springframework</groupId>
 				  <artifactId>spring-jcl</artifactId>
 			   </exclusion>
-			</exclusions>
+			</exclusions>			
+		</dependency>
+
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org-springframework-version}</version>
 		</dependency>
 		
 		<!-- spring jdbc -->
@@ -79,7 +65,7 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>2.0.7</version>
 		</dependency>
-
+		
 		<!-- common dbcp -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -94,7 +80,7 @@
 		    <version>3.0.8</version>
 		</dependency>
 		
-		<!-- Logback --> 
+		<!-- logback --> 
 		<dependency>                                    
 			<groupId>org.slf4j</groupId>                
 			<artifactId>jcl-over-slf4j</artifactId>     
@@ -105,7 +91,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-		
+				
 		<!-- servlet -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
@@ -118,7 +104,7 @@
 		    <artifactId>jsp-api</artifactId>
 		    <version>2.2</version>
 		    <scope>provided</scope>
-		</dependency>		
+		</dependency>			
 	</dependencies>
 
 	<build>

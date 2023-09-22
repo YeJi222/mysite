@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poscodx.mysite.security.Auth;
+import com.poscodx.mysite.service.FileUploadService;
 import com.poscodx.mysite.service.SiteService;
 import com.poscodx.mysite.vo.SiteVo;
 
@@ -15,6 +16,9 @@ import com.poscodx.mysite.vo.SiteVo;
 public class AdminController {
 	@Autowired
 	private SiteService siteService;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 
 	@RequestMapping("")
 	public String main(Model model) {
