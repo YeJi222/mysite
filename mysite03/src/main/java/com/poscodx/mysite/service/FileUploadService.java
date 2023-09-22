@@ -41,7 +41,6 @@ public class FileUploadService {
 			
 			byte[] data = file.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-			System.out.println("os : " + os);
 			os.write(data);
 			os.close();
 			

@@ -40,12 +40,15 @@ public class AdminController {
 
 	@RequestMapping("/main/update")
 	public String update(SiteVo vo, @RequestParam("file") MultipartFile file) {
-		
+		// System.out.println("before url : " + vo.getProfile());
 		
 		/* 이미지 파일 업로드 처리 */
 		String url = fileUploadService.restore(file);
 
 		// siteVo profile 셋 해주기 
+		if(url == null) { // before url로 세팅 
+			url = vo.getProfile();
+		}
 		vo.setProfile(url);
 		System.out.println("vo" + vo);
 		
