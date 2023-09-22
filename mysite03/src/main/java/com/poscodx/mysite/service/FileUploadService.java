@@ -14,8 +14,8 @@ import com.poscodx.mysite.exception.FileUploadServiceException;
 
 @Service
 public class FileUploadService {
-	private static String SAVE_PATH = "Users/yeji/mysite-uploads";
-	private static String URL_PATH = "/images";
+	private static String SAVE_PATH = "/Users/yeji/mysite-uploads";
+	private static String URL_PATH = "/assets/upload-images";
 	
 	public String restore(MultipartFile file) {
 		String url = null;
@@ -41,6 +41,7 @@ public class FileUploadService {
 			
 			byte[] data = file.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			System.out.println("os : " + os);
 			os.write(data);
 			os.close();
 			

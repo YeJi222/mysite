@@ -25,40 +25,36 @@ import com.poscodx.mysite.vo.UserVo;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
-	/////////// join ///////////
-	@RequestMapping(value="/join", method=RequestMethod.GET) 
-	public String join() { // join form
-		return "user/join"; 
+
+	@RequestMapping(value="/join", method=RequestMethod.GET)
+	public String join(@ModelAttribute UserVo userVo) {
+		return "user/join";
 	}
-	
-	@RequestMapping(value="/join", method=RequestMethod.POST) 
-	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) { // join action
+
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 		if(result.hasErrors()) {
-//			List<ObjectError> list = result.getAllErrors();
-//			for(ObjectError error : list) {
-//				error.getDefaultMessage();
-//				System.out.println(error);
-//			}
+			// List<ObjectError> list = result.getAllErrors();
+			// for(ObjectError error : list) {
+			//	System.out.println(error);
+			// }
 			
 			model.addAllAttributes(result.getModel());
 			return "user/join";
 		}
 		
 		userService.join(userVo);
-		
-		return "redirect:/user/joinsuccess"; 
+		return "redirect:/user/joinsuccess";
 	}
-	
-	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET) 
-	public String joinsuccess() { // joinsuccess form
-		return "user/joinsuccess"; 
+
+	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)
+	public String joinsuccess() {
+		return "user/joinsuccess";
 	}
-	
-	/////////// login ///////////
-	@RequestMapping(value="/login", method=RequestMethod.GET) 
-	public String login() { // login form
-		return "user/login";                                                                                                                                                                                                     
+
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String login() {
+		return "user/login";
 	}
 	
 	@Auth
