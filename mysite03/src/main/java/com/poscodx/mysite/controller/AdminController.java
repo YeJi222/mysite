@@ -50,9 +50,10 @@ public class AdminController {
 			url = vo.getProfile();
 		}
 		vo.setProfile(url);
-		System.out.println("vo" + vo);
+		// System.out.println("vo" + vo);
 		
 		siteService.updateSite(vo);
+		
 		
 		return "redirect:/admin";
 	}

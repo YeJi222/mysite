@@ -17,6 +17,7 @@ public class MainController {
 	public String index(Model model) {
 		SiteVo vo = siteService.getSite();
 		model.addAttribute("siteVo", vo);
+		
 		return "main/index";
 	}
 	

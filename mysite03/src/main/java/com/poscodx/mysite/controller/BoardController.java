@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.poscodx.mysite.security.Auth;
 import com.poscodx.mysite.security.AuthUser;
 import com.poscodx.mysite.service.BoardService;
+import com.poscodx.mysite.service.SiteService;
 import com.poscodx.mysite.vo.BoardVo;
+import com.poscodx.mysite.vo.SiteVo;
 import com.poscodx.mysite.vo.UserVo;
 import com.poscodx.web.util.WebUtil;
 
@@ -25,6 +27,9 @@ import com.poscodx.web.util.WebUtil;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private SiteService siteService;
 	
 	@RequestMapping("")
 	public String index(Model model,
@@ -35,6 +40,9 @@ public class BoardController {
 		
 		model.addAttribute("map", map);
 		model.addAttribute("keyword", keyword);
+		
+		SiteVo vo = siteService.getSite();
+		model.addAttribute("siteVo", vo);
 		
 		return "board/index";
 	}

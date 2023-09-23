@@ -2,7 +2,10 @@ package com.poscodx.mysite.controller;
 
 import com.poscodx.mysite.security.Auth;
 import com.poscodx.mysite.service.GuestbookService;
+import com.poscodx.mysite.service.SiteService;
 import com.poscodx.mysite.vo.GuestbookVo;
+import com.poscodx.mysite.vo.SiteVo;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +21,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
+	
+	@Autowired
+	private SiteService siteService;
 
 	@RequestMapping("")
 	public String main(Model model) {
 		List<GuestbookVo> list = guestbookService.getContentsList();
 		model.addAttribute("list", list);
+		
+		SiteVo vo = siteService.getSite();
+		model.addAttribute("siteVo", vo);
+		
 		return "guestbook/main";
 	}
 	
