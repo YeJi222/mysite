@@ -24,29 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
-	
-//	@Autowired
-//	private SiteService siteService;
-	
-	@Autowired
-    private ApplicationContext applicationContext;
 
 	@RequestMapping("")
 	public String main(Model model, HttpServletRequest request) {
 		List<GuestbookVo> list = guestbookService.getContentsList();
 		model.addAttribute("list", list);
-		
-//		SiteVo vo = siteService.getSite();
-//		model.addAttribute("siteVo", vo);
-		
-		// ApplicationContext - SiteVo 객체 가져오기
-		SiteVo siteVo = (SiteVo) request.getAttribute("siteVo");
-		System.out.println("guest controller : " + siteVo);
-	    model.addAttribute("siteVo", siteVo);
-       
-//		SiteVo siteVo = applicationContext.getBean("siteVo", SiteVo.class);
-//        System.out.println("guest controller : " + siteVo);
-//        model.addAttribute("siteVo", siteVo);
 		
         return "guestbook/main";
 	}

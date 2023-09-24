@@ -28,9 +28,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@Autowired
-	private SiteService siteService;
-	
 	@RequestMapping("")
 	public String index(Model model,
 			@RequestParam(value="p", required=true, defaultValue="1") Integer page,
@@ -40,9 +37,6 @@ public class BoardController {
 		
 		model.addAttribute("map", map);
 		model.addAttribute("keyword", keyword);
-		
-//		SiteVo vo = siteService.getSite();
-//		model.addAttribute("siteVo", vo);
 		
 		return "board/index";
 	}

@@ -41,7 +41,8 @@ public class AdminController {
 
 	@RequestMapping("/main/update")
 	public String update(SiteVo vo, @RequestParam("file") MultipartFile file) {
-		// System.out.println("before url : " + vo.getProfile());
+		// 빈 불러오기 
+		SiteVo existingSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
 		
 		/* 이미지 파일 업로드 처리 */
 		String url = fileUploadService.restore(file);
@@ -54,16 +55,10 @@ public class AdminController {
 		System.out.println("admin controller vo" + vo);
 		
 		siteService.updateSite(vo);
-		
-		// 수정된 SiteVo를 다시 ApplicationContext에 등록
-		((ConfigurableApplicationContext) applicationContext).getBeanFactory().registerSingleton("siteVo", vo);
-        // applicationContext.getBeanFactory().registerSingleton("siteVo", vo);
-		
-		// 빈이 정상적으로 등록되었는지 확인
-		SiteVo registeredSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
-
-		// 확인
-		System.out.println("Registered SiteVo: " + registeredSiteVo);
+		existingSiteVo.setTitle(vo.getTitle());
+		existingSiteVo.setWelcome(vo.getWelcome());
+		existingSiteVo.setProfile(vo.getProfile());
+		existingSiteVo.setDescription(vo.getDescription());
 		
 		return "redirect:/admin";
 	}

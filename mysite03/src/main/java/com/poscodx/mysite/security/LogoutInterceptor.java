@@ -9,13 +9,12 @@ import javax.servlet.http.HttpSession;
 public class LogoutInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    	System.out.println("LogoutInterceptor preHandle...");
     	
     	HttpSession session = request.getSession();
-       session.removeAttribute("authUser");
-       session.invalidate();
+    	session.removeAttribute("authUser");
+    	session.invalidate();
 
-       response.sendRedirect(request.getContextPath());
-       return false;
+    	response.sendRedirect(request.getContextPath());
+    	return false;
     }
 }
