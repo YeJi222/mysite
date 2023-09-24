@@ -1,6 +1,6 @@
 # Application Context 정리 
 #### '2023/09/22/금 과제 - ApplicationContext로 SiteVo 상태 관리 하기'와 연관
-### 🖥️ [과제 코드로 이해하기](#[과제 코드로 이해하기])
+### 🖥️ [과제 코드로 이해하기](https://github.com/YeJi222/mysite/blob/main/AdminPage_Assginment.md)
 
 ### [Task]
 - admin page에서 수정한 title을 main, guestbook, board page에서 동적으로 반영되도록 할 것이다
