@@ -14,8 +14,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		System.out.println("AuthInterceptor preHandle...");
-		
 		// 1. handler 종류 확인
 		if(!(handler instanceof HandlerMethod)) {
 			// DefaultServletHanlder가 처리하는 경우(정적 자원, /assets/**)

@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.poscodx.mysite.controller.AdminController;
 import com.poscodx.mysite.service.SiteService;
 import com.poscodx.mysite.vo.SiteVo;
 
@@ -37,9 +35,9 @@ public class SiteInterceptor implements HandlerInterceptor {
         SiteVo registeredSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
         System.out.println("Site Interceptor registeredSiteVo : " + registeredSiteVo);
 		
-		// 가져온 SiteVo를 request 속성에 저장합니다.
+		// 가져온 SiteVo를 request 속성에 저장 
         request.setAttribute("siteVo", registeredSiteVo);
 
-        return true;
+        return true; // 반환이 false이면, controller로 요청하지 않음 
 	}
 }

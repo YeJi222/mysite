@@ -22,7 +22,7 @@ public class GuestbookController {
 	private GuestbookService guestbookService;
 
 	@RequestMapping("")
-	public String main(Model model, HttpServletRequest request) {
+	public String main(Model model) {
 		List<GuestbookVo> list = guestbookService.getContentsList();
 		model.addAttribute("list", list);
 		
