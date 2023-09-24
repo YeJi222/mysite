@@ -2,7 +2,7 @@
 
 ### [SiteInterceptor]
 - 우선, 브라우저로 api 요청을 할 때, RequestMapping이 이루어지므로, Controller가 실행되기 전, SiteVo 오브젝트를 빈으로 등록해야 한다
-- 등록한 빈을 가져와 request 속성에 저장하는 등의 역할을 SiteInterceptor에서 preHandle 메소드를 통해 Controller가 동작하기 전 처리를 한다
+- 등록한 빈을 가져와 request 속성에 저장하는 등의 역할을 SiteInterceptor에서 preHandle 메소드를 통해 Controller가 동작하기 전, 처리를 한다
 
 #### (전체 코드) 
 ```java
