@@ -17,9 +17,11 @@ public class SiteInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		SiteVo siteVo = applicationContext.getBean(SiteVo.class);
+		System.out.println("site interceptor preHandle...");
+		SiteVo siteVo = applicationContext.getBean("siteVo", SiteVo.class);
 
-		siteVo.setTitle("페이지 제목");
+		// 가져온 SiteVo를 request 속성에 저장합니다.
+        request.setAttribute("siteVo", siteVo);
 
         return true;
 	}

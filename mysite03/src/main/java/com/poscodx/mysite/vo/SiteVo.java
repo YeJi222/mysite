@@ -1,5 +1,9 @@
 package com.poscodx.mysite.vo;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+
+@Component
 public class SiteVo {
 	private Long no;
 	private String title;

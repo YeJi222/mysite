@@ -4,6 +4,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,10 +51,19 @@ public class AdminController {
 			url = vo.getProfile();
 		}
 		vo.setProfile(url);
-		// System.out.println("vo" + vo);
+		System.out.println("admin controller vo" + vo);
 		
 		siteService.updateSite(vo);
 		
+		// 수정된 SiteVo를 다시 ApplicationContext에 등록
+		((ConfigurableApplicationContext) applicationContext).getBeanFactory().registerSingleton("siteVo", vo);
+        // applicationContext.getBeanFactory().registerSingleton("siteVo", vo);
+		
+		// 빈이 정상적으로 등록되었는지 확인
+		SiteVo registeredSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
+
+		// 확인
+		System.out.println("Registered SiteVo: " + registeredSiteVo);
 		
 		return "redirect:/admin";
 	}

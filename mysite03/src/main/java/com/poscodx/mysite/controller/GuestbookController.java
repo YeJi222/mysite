@@ -8,7 +8,10 @@ import com.poscodx.mysite.vo.SiteVo;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,18 +25,30 @@ public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
 	
+//	@Autowired
+//	private SiteService siteService;
+	
 	@Autowired
-	private SiteService siteService;
+    private ApplicationContext applicationContext;
 
 	@RequestMapping("")
-	public String main(Model model) {
+	public String main(Model model, HttpServletRequest request) {
 		List<GuestbookVo> list = guestbookService.getContentsList();
 		model.addAttribute("list", list);
 		
-		SiteVo vo = siteService.getSite();
-		model.addAttribute("siteVo", vo);
+//		SiteVo vo = siteService.getSite();
+//		model.addAttribute("siteVo", vo);
 		
-		return "guestbook/main";
+		// ApplicationContext - SiteVo 객체 가져오기
+		SiteVo siteVo = (SiteVo) request.getAttribute("siteVo");
+		System.out.println("guest controller : " + siteVo);
+	    model.addAttribute("siteVo", siteVo);
+       
+//		SiteVo siteVo = applicationContext.getBean("siteVo", SiteVo.class);
+//        System.out.println("guest controller : " + siteVo);
+//        model.addAttribute("siteVo", siteVo);
+		
+        return "guestbook/main";
 	}
 	
 	@RequestMapping("add")

@@ -41,8 +41,8 @@ public class BoardController {
 		model.addAttribute("map", map);
 		model.addAttribute("keyword", keyword);
 		
-		SiteVo vo = siteService.getSite();
-		model.addAttribute("siteVo", vo);
+//		SiteVo vo = siteService.getSite();
+//		model.addAttribute("siteVo", vo);
 		
 		return "board/index";
 	}
