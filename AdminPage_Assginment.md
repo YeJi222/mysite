@@ -69,3 +69,119 @@ request.setAttribute("siteVo", registeredSiteVo);
 
 return true; // 반환이 false이면, controller로 요청하지 않음 
 ```
+
+### [Controller]
+- 원래 코드를 보면, SiteService를 통해 SiteVo 객체를 불러오고, 이것을 model 속성에 추가한 후, jsp를 리턴해준다
+```java
+// MainController
+
+@Controller
+public class MainController {
+	@Autowired
+	private SiteService siteService;
+	
+	@RequestMapping("")
+	public String index(Model model) {
+		SiteVo vo = siteService.getSite();
+		model.addAttribute("siteVo", vo);
+		
+		return "main/index";
+	}
+}
+```
+- ApplicationContext를 통한 빈 등록을 사용하면, 코드가 아래와 같이 매우 간결해진다
+```java
+// MainController
+
+@Controller
+public class MainController {
+	@RequestMapping("")
+	public String index() {
+		return "main/index";
+	}
+}
+```
+- GuestbookController와 BoardController도 마찬가지이다
+```java
+// GuestbookController
+
+@RequestMapping("")
+public String main(Model model) {
+	List<GuestbookVo> list = guestbookService.getContentsList();
+	model.addAttribute("list", list);
+	
+return "guestbook/main";
+}
+```
+```java
+// BoardController
+
+@RequestMapping("")
+public String index(Model model,
+		@RequestParam(value="p", required=true, defaultValue="1") Integer page,
+		@RequestParam(value="kwd", required=true, defaultValue="") String keyword) {
+	
+	Map<String, Object> map = boardService.getContentsList(page, keyword);
+	
+	model.addAttribute("map", map);
+	model.addAttribute("keyword", keyword);
+	
+	return "board/index";
+}
+```
+
+### [AdminController]
+- AdminController에서 admin page 수정한 경우, SiteVo가 변경되고, 이것을 동적으로 반영해주어야 하므로, 등록한 빈을 불러와서 update 해주는 과정이 필요하다
+- 먼저 ApplicationContext를 주입받고, 이를 사용하여 getBean 메소드를 사용하면 등록한 빈을 가져올 수 있다
+```java
+@Autowired
+private ApplicationContext applicationContext;
+
+...
+
+SiteVo existingSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
+```
+- admin page에서 변경 버튼을 누르면, siteService의 updateSite 메소드를 통해 SiteVo 객체를 변경해준다
+```java
+siteService.updateSite(vo);
+```
+- 변경된 SiteVo 객체를 통해 불러온 빈 'existingSiteVo'의 title, welcome, profile, description을 Set 해준다
+- 등록한 빈을 update 해주었으므로, Main page, Guestbook page, Board page 모두 변경한 Title로 적용된 것을 확인할 수 있다 
+```java
+existingSiteVo.setTitle(vo.getTitle());
+existingSiteVo.setWelcome(vo.getWelcome());
+existingSiteVo.setProfile(vo.getProfile());
+existingSiteVo.setDescription(vo.getDescription());
+```
+
+#### (전체 코드) 
+```java
+@Autowired
+private ApplicationContext applicationContext;
+
+...
+
+@RequestMapping("/main/update")
+public String update(SiteVo vo, @RequestParam("file") MultipartFile file) {
+	// 빈 불러오기 
+	SiteVo existingSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
+	
+	/* 이미지 파일 업로드 처리 */
+	String url = fileUploadService.restore(file);
+
+	// siteVo profile 셋 해주기 
+	if(url == null) { // before url로 세팅 
+		url = vo.getProfile();
+	}
+	vo.setProfile(url);
+	System.out.println("admin controller vo" + vo);
+	
+	siteService.updateSite(vo);
+	existingSiteVo.setTitle(vo.getTitle());
+	existingSiteVo.setWelcome(vo.getWelcome());
+	existingSiteVo.setProfile(vo.getProfile());
+	existingSiteVo.setDescription(vo.getDescription());
+	
+	return "redirect:/admin";
+}
+```
