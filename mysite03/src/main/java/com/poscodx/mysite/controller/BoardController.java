@@ -2,8 +2,6 @@ package com.poscodx.mysite.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.poscodx.mysite.security.Auth;
 import com.poscodx.mysite.security.AuthUser;
 import com.poscodx.mysite.service.BoardService;
-import com.poscodx.mysite.service.SiteService;
 import com.poscodx.mysite.vo.BoardVo;
-import com.poscodx.mysite.vo.SiteVo;
 import com.poscodx.mysite.vo.UserVo;
 import com.poscodx.web.util.WebUtil;
 
