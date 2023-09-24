@@ -1,5 +1,6 @@
 # Application Context 정리 
 #### '2023/09/22/금 과제 - ApplicationContext로 SiteVo 상태 관리 하기'와 연관
+### 🖥️ [과제 코드로 이해하기](#[과제 코드로 이해하기])
 
 ### [Task]
 - admin page에서 수정한 title을 main, guestbook, board page에서 동적으로 반영되도록 할 것이다
@@ -42,5 +43,6 @@ appContext.getBeanFactory().registerSingleton("siteVo", siteVo);
 ```
 - 주의 : 빈 중복 등록이 되면 에러가 발생
 
-### [CF - 빈 삭제]
+### [cf. - 빈 삭제]
 - getBeanFactory().destroySingleton(등록된 빈 이름); 메소드로 빈 삭제 가능 
+
