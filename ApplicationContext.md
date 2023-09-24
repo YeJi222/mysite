@@ -3,9 +3,9 @@
 ### 🖥️ [과제 코드로 이해하기](https://github.com/YeJi222/mysite/blob/main/AdminPage_Assginment.md)
 
 ### [Task]
-- admin page에서 수정한 title을 main, guestbook, board page에서 동적으로 반영되도록 할 것이다
-- title 외에 welcome, profile, description도 반영해주어 main page에서 바로 반영되도록 한다
-- 이를 위해, SiteInterceptor를 만들어 preHandle 메소드에서 SiteVo 객체를 빈으로 등록하고, 이를 request 속성에 저장할 것이다
+- admin page에서 수정한 title을 main, guestbook, board page에서 동적으로 반영되도록 할 것
+- title 외에 welcome, profile, description도 반영해주어 main page에서 바로 반영되도록
+- 이를 위해, SiteInterceptor를 만들어 preHandle 메소드에서 SiteVo 객체를 빈으로 등록하고, 이를 request 속성에 저장할 것
 - 이렇게 저장된 siteVo는 jsp에서 불러다 쓸 수 있다
 - AdminController에서 SiteVo 객체를 update 한 후에, 해당 정보를 통해 등록한 빈 또한 변경해준다 
 
