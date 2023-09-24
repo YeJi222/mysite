@@ -185,3 +185,13 @@ public String update(SiteVo vo, @RequestParam("file") MultipartFile file) {
 	return "redirect:/admin";
 }
 ```
+
+### [header.jsp]
+- jsp에서 ${siteVo.title}로 불러올 수 있다 
+```jsp
+<h1>
+	<a style="text-decoration: none; color: #79B30B" href="${pageContext.request.contextPath }/">
+		${siteVo.title}
+	</a>
+</h1>
+```
