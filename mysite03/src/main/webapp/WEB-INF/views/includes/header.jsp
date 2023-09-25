@@ -2,11 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% pageContext.setAttribute( "newLine", "\n" ); %>
 <div id="header">
 	<h1>
 		<a style="text-decoration: none; color: #79B30B" href="${pageContext.request.contextPath }/">
-		${fn:replace(siteVo.title, newLine, "<br>") }
+		${siteVo.title}
 		</a>
 	</h1>
 	<ul>

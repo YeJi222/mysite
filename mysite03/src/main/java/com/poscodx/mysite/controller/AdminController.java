@@ -1,5 +1,8 @@
 package com.poscodx.mysite.controller;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,9 @@ public class AdminController {
 	private ApplicationContext applicationContext;
 	
 	@Autowired
+	private ServletContext servletContext;
+	
+	@Autowired
 	private SiteService siteService;
 	
 	@Autowired
@@ -35,8 +41,6 @@ public class AdminController {
 
 	@RequestMapping("/main/update")
 	public String update(SiteVo vo, @RequestParam("file") MultipartFile file) {
-		// 빈 불러오기 
-		SiteVo existingSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
 		
 		/* 이미지 파일 업로드 처리 */
 		String url = fileUploadService.restore(file);
@@ -48,11 +52,34 @@ public class AdminController {
 		vo.setProfile(url);
 		System.out.println("admin controller vo" + vo);
 		
+		/* 내 코드 - 빈 불러오기 
+		SiteVo existingSiteVo = applicationContext.getBean("siteVo", SiteVo.class);
+		*/
+		
+		// 강사님 코드 
+		SiteVo site = applicationContext.getBean(SiteVo.class);
+		
 		siteService.updateSite(vo);
+		
+		/* 내 코드  
 		existingSiteVo.setTitle(vo.getTitle());
 		existingSiteVo.setWelcome(vo.getWelcome());
 		existingSiteVo.setProfile(vo.getProfile());
 		existingSiteVo.setDescription(vo.getDescription());
+		*/
+		
+		/* 강사님 코드 - ServletContext 주입받은 것 사용 
+		servletContext.setAttribute("siteVo", vo);
+		*/
+		
+		/* 강사님 코드 - ApplicationContext 주입받은 것 사용 */ 
+		/*
+		site.setTitle(vo.getTitle());
+		site.setWelcome(vo.getWelcome());
+		site.setProfile(vo.getProfile());
+		site.setDescription(vo.getDescription());
+		*/ 
+		BeanUtils.copyProperties(vo, site); // 위 코드 한 줄로 대체 가능 
 		
 		return "redirect:/admin";
 	}
