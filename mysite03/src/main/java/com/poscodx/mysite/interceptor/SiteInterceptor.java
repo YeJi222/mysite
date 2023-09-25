@@ -1,4 +1,4 @@
-package com.poscodx.mysite.security;
+package com.poscodx.mysite.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +18,8 @@ public class SiteInterceptor implements HandlerInterceptor {
 	@Autowired
 	private SiteService siteService;
 
+	// 내 코드 - ApplicationContext 이용 
+	/*
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -39,5 +41,19 @@ public class SiteInterceptor implements HandlerInterceptor {
         request.setAttribute("siteVo", registeredSiteVo);
 
         return true; // 반환이 false이면, controller로 요청하지 않음 
+	}
+	*/
+	
+	// 강사님 코드 - ServletContext 이용 
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		SiteVo siteVo = (SiteVo)request.getServletContext().getAttribute("siteVo");
+		if(siteVo == null) {
+			siteVo = siteService.getSite();
+			request.getServletContext().setAttribute("siteVo", siteVo);
+		}
+			
+        return true; 
 	}
 }
