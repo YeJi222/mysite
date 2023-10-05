@@ -82,3 +82,6 @@ from guestbook
 order by reg_date desc;
 
 insert into user values (null, '관리자', 'admin@mysite.com', password('1234'), 'female', current_date(), 'ADMIN');
+
+show table status where name = 'user';
+
