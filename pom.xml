@@ -10,6 +10,7 @@
   	<module>mysite03</module>
   	<module>mysite03_b</module>
   	<module>mysite04</module>
+  	<module>mysite05</module>
   </modules>
   
   <build> 
