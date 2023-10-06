@@ -1,5 +1,6 @@
 package com.poscodx.mysite.config.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @PropertySource("classpath:com/poscodx/mysite/config/web/fileupload.properties")
 public class FileuploadConfig implements WebMvcConfigurer {
+	@Autowired
 	private Environment env;
 	
 	// Multipart Resolver
