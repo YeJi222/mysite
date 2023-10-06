@@ -13,6 +13,8 @@
  |     |     |     |    |-- SecurityConfig.java
  |     |     |     |    |-- MessageSourceConfig.java
  |     |     |     |    |-- FileuploadConfig.java
+ |     |     |-- /initializer
+ |     |     |     |-- MySiteWebApplicationInitializer 
  |     |     |-- /controller 
  |     |     |-- /service
  |     |     |-- /repository
