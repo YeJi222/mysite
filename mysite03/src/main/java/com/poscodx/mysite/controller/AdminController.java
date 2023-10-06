@@ -60,6 +60,7 @@ public class AdminController {
 		SiteVo site = applicationContext.getBean(SiteVo.class);
 		
 		siteService.updateSite(vo);
+		servletContext.setAttribute("siteVo", vo);
 		
 		/* 내 코드  
 		existingSiteVo.setTitle(vo.getTitle());
