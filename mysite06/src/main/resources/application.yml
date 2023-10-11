@@ -1,0 +1,45 @@
+# spring configuration
+spring:
+   application:
+      name: myweb
+   
+   # devtools - live reload
+   devtools:
+      livereload:
+         enabled: true   
+   
+   # mvc
+   mvc:
+      static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
+      view:
+         prefix: /WEB-INF/views/
+         suffix: .jsp
+   web:
+      resources:
+         static-locations: classpath:/assets/, file:/Users/yeji/mysite-uploads/
+         
+   # datasource
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://192.168.64.9:3307/webdb?charset=utf8
+      username: webdb
+      password: webdb
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
+
+# mybatis
+mybatis:
+   config-location: classpath:mybatis/configuration.xml
+   
+      
+# server
+server:
+   port: 8080
+   servlet:
+      context-path: /mysite06
+      encoding:
+         charset: utf-8
+         enabled: true
+   
