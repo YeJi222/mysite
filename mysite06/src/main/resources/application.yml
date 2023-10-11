@@ -72,7 +72,8 @@ logging:
          file-name-pattern: /${spring.application.name}-logs/exception.%d{yyyy-MM-dd}.%i.log.zip
          max-file-size: 200MB
          max-history: 10 
-   file: /${spring.application.name}-logs/exception.log
+   file:
+      name: /Users/yeji/${spring.application.name}-logs/exception.log
    level:
       root: INFO
       com:

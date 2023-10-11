@@ -11,10 +11,7 @@ public class MySiteApplication {
 
 	public static void main(String[] args) {
 		
-		ApplicationContext ac = SpringApplication.run(MySiteApplication.class, args);
-		
-		SiteVo site = ac.getBean(SiteVo.class);
-		System.out.println(site);
+		SpringApplication.run(MySiteApplication.class, args);
 		
 	}
 
