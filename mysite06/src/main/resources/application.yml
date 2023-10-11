@@ -1,7 +1,7 @@
 # spring configuration
 spring:
    application:
-      name: myweb
+      name: mysite
    
    # devtools - live reload
    devtools:
@@ -12,9 +12,10 @@ spring:
    mvc:
       static-path-pattern: /assets/**
       throw-exception-if-no-handler-found: true
-      view:
-         prefix: /WEB-INF/views/
-         suffix: .jsp
+#      view:
+#         prefix: /WEB-INF/views/
+#         suffix: .jsp
+#         exposeContextBeansAsAttributes: true
          
    web:
       resources:
@@ -30,7 +31,7 @@ spring:
    # message resources(internationalization, i18n)
    messages:
       always-use-message-format: true
-      basename: web/messages/messages_ko
+      basename: web/messages/messages
       encoding: utf-8
       
    # aop
@@ -40,8 +41,8 @@ spring:
 
    # datasource
    datasource:
-      driver-class-name: org.mariadb.jdbc.Driver
       url: jdbc:mariadb://192.168.64.9:3307/webdb?charset=utf8
+      driver-class-name: org.mariadb.jdbc.Driver
       username: webdb
       password: webdb
       hikari:

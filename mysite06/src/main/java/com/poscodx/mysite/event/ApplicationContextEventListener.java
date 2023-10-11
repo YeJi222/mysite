@@ -36,6 +36,6 @@ public class ApplicationContextEventListener {
 		AutowireCapableBeanFactory factory = applicationContext.getAutowireCapableBeanFactory();
 		BeanDefinitionRegistry registry = (BeanDefinitionRegistry)factory;
 		
-		registry.registerBeanDefinition("siteVo", beanDefinition);	
+		registry.registerBeanDefinition("site", beanDefinition);	
 	}
 }
