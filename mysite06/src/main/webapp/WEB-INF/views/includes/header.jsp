@@ -6,6 +6,7 @@
 	<h1>
 		<a style="text-decoration: none; color: #79B30B" href="${pageContext.request.contextPath }/">
 		${siteVo.title}
+		<%-- ${site.title} --%>
 		</a>
 	</h1>
 	<ul>
