@@ -25,15 +25,15 @@ public class UserService {
 	}
 
 	public UserVo getUser(String email, String password) {
-		UserVo authUser = userRepository.findByEmailAndPassword(email, password);
-		
-		return authUser;
+		return userRepository.findByEmailAndPassword(email, password);
 	}
 
 	public UserVo getUser(Long no) {
-		UserVo authUser = userRepository.findByNo(no);
-		
-		return authUser;
+		return userRepository.findByNo(no);
+	}
+	
+	public UserVo getUser(String email) {
+		return userRepository.findByEmail(email);
 	}
 
 	public void update(UserVo userVo) {
