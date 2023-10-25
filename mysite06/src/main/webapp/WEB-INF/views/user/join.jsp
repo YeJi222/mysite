@@ -14,7 +14,67 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+var messageBox = function(title, message, callback){
+	$("#dialog").attr('title', title);
+	$("#dialog p").text(message);
+	
+	$("#dialog").dialog({
+		width: 340,
+		modal: true,
+		buttons: {
+			"확인": function(){
+				// $(this) : dialog element 
+				$(this).dialog("close");
+			}
+		},
+		close: callback
+	});
+}
 $(function(){
+	$('#join-form').submit(function(event){
+		event.preventDefault();
+		
+		// 1. 이름 
+		if($("#name").val() === ''){
+			messageBox('회원가입', '이름은 필수 항목 입니다.', function(){
+				$("#name").focus();
+			});
+			return;
+		}
+		
+		// 2. 이메일  
+		if($("#email").val() === ''){
+			messageBox('회원가입', '이메일은 필수 항목 입니다.', function(){
+				$("#email").focus();
+			});
+			return;
+		}
+		
+		// 3. 이메일 중복 체크 
+		if(!$("#img-check-email").is(':visible')){
+			messageBox('회원가입', '이메일 중복 확인을 해주세요.');
+			return;
+		}
+		
+		// 4. 비밀번호  
+		if($("#password").val() === ''){
+			messageBox('회원가입', '비밀번호는 필수 항목 입니다.', function(){
+				$("#password").focus();
+			});
+			return;
+		}
+		
+		// 5. ok
+		this.submit();
+	})
+	
+	$("#email").change(function(){
+		console.log("change");
+		
+		$('#img-check-email').hide();
+		$('#btn-check-email').show();
+	})
+	
 	$('#btn-check-email').click(function() {
 		var email = $('#email').val(); // 이메일 입력하는 값 
 		if(email === '') {
@@ -133,7 +193,7 @@ $(function(){
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 	<div id="dialog" title="이메일 중복 체크" style="display:none;">
-  		<p>사용중인 이메일입니다. 다른 이메일을 사용해 주세요.</p>
+  		<p style="line-height: 60px;">사용중인 이메일입니다. 다른 이메일을 사용해 주세요.</p>
 	</div>
 </body>
 </html>
