@@ -31,7 +31,6 @@ public class GuestbookController {
 	
 	@RequestMapping("/ajax")
 	public String ajax(Model model) {
-		
         return "guestbook/main-ajax";
 	}
 	
