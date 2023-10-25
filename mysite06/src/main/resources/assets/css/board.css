@@ -45,7 +45,7 @@ input#kwd	{
 	text-align:center; 	 
 }
 
-.tbl-ex td:nth-child(2){
+.tbl-ex td:nth-child(2) {
 	text-align: left;
 }
 	
