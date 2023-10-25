@@ -12,6 +12,23 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+var messageBox = function(title, message, callback){
+	$("#dialog").attr('title', title);
+	$("#dialog p").text(message);
+	
+	$("#dialog").dialog({
+		width: 340,
+		modal: true,
+		buttons: {
+			"확인": function(){
+				// $(this) : dialog element 
+				$(this).dialog("close");
+			}
+		},
+		close: callback
+	});
+}
+
 var render = function(vo, mode) {
 	var html = 		
 		"<li data-no='" + vo.no + "'>" +
@@ -66,6 +83,30 @@ $(function(){
 	$('#add-form').submit(function(event) {
 		event.preventDefault();
 		
+		// 1. 이름 
+		if($("#input-name").val() === ''){
+			messageBox('방명록 추가', '이름은 필수 항목 입니다.', function(){
+				$("#input-name").focus();
+			});
+			return;
+		}
+		
+		// 2. 비밀번호  
+		if($("#input-password").val() === ''){
+			messageBox('방명록 추가', '비밀번호는 필수 항목 입니다.', function(){
+				$("#input-password").focus();
+			});
+			return;
+		}
+		
+		// 3. 방명록 내용 
+		if($("#tx-content").val() === ''){
+			messageBox('방명록 추가', '방명록 내용은 필수 항목 입니다.', function(){
+				$("#tx-content").focus();
+			});
+			return;
+		}
+		
 		var vo = {};
 		vo.name = $("#input-name").val();
 		vo.password = $("#input-password").val();
@@ -89,6 +130,7 @@ $(function(){
 	});
 	
 	var dialogDelete = $("#dialog-delete-form").dialog({
+		width: 320,
 		autoOpen: false,
 		model: true,
 		buttons: {
@@ -97,6 +139,11 @@ $(function(){
 				var password = $('#password-delete').val();
 				
 				console.log("ajax 삭제~~", no, password);
+				
+				if(password == '') { // 패스워드를 입력하지 않았을 때 
+					$('#password-delete').focus();
+					return;
+				}
 				
 				// 후처리
 				$.ajax({
@@ -108,16 +155,18 @@ $(function(){
 					success: function(response) {
 						if(response.result === 'fail') {
 							console.error(response.message);
+							messageBox('방명록 삭제', response.message);
+							
 							return;
-						} else{
+						} else{ // delete 성공 
 							// 1. response.data(no) 가지고 있는 <li data+no='{no}' > 찾아서 삭제
 							$("li[data-no='" + no + "']").remove();
-							
-							// 2. dialogDelete.dialog('close');
-							$(this).dialog('close');
 						}
 					}
 				})
+				
+				// 2. dialogDelete.dialog('close');
+				$(this).dialog('close');
 				
 				// 폼의 input value reset;
 				$('#password-delete').val("");			
@@ -180,6 +229,9 @@ $(function(){
 			<c:param name="menu" value="guestbook-ajax"/>
 		</c:import>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
+	</div>
+	<div id="dialog" title="빈칸 체크" style="display:none;">
+  		<p style="line-height: 60px;">빈칸이 있으면 방명록이 추가되지 않습니다.</p>
 	</div>
 </body>
 </html>
