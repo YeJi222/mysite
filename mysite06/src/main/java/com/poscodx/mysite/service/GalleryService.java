@@ -14,7 +14,9 @@ public class GalleryService {
 	private GalleryRepository galleryRepository;
 	
 	public List<GalleryVo> getImages() {
-		return null;
+		List<GalleryVo> list = galleryRepository.findImages();
+		
+		return list;
 	}
 	
 	public void removeImage(Long no) {
@@ -22,5 +24,9 @@ public class GalleryService {
 	
 	public void addImage(GalleryVo galleryVo) {
 		galleryRepository.insert(galleryVo);
+	}
+
+	public void deleteImage(Long no) {
+		galleryRepository.delete(no);
 	}
 }

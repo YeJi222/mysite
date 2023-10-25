@@ -1,8 +1,13 @@
 package com.poscodx.mysite.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,10 +21,15 @@ import com.poscodx.mysite.vo.GalleryVo;
 public class GalleryController {
 	@Autowired
 	private FileUploadService fileUploadService;
+	
+	@Autowired
 	private GalleryService galleryService;
 	
 	@RequestMapping("")
-	public String index() {
+	public String index(Model model) {
+		List<GalleryVo> list = galleryService.getImages();
+		model.addAttribute("list", list);
+		
 		return "gallery/index";
 	}
 	
@@ -44,7 +54,11 @@ public class GalleryController {
 	}
 	
 	// delete 
-	// @Auth(Role="ADMIN")
-	// @RequestMapping("")
+	@Auth(Role="ADMIN")
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET) // delete action
+	public String delete(@PathVariable("no") Long no) {
+		galleryService.deleteImage(no);
 	
+		return "redirect:/gallery";	
+	}
 }
