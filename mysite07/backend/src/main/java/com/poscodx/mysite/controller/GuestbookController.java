@@ -31,8 +31,6 @@ public class GuestbookController {
 	public ResponseEntity<JsonResult> list(
 			@RequestParam(value="no", required=true, defaultValue="0") Long startNo) {	
 		log.info("Request[GET /api/guestbook]:"+ startNo);
-		System.out.println("list : " + guestbookService.getContentsList(startNo));
-		System.out.println(JsonResult.success(guestbookService.getContentsList(startNo)).getData());
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -41,7 +39,7 @@ public class GuestbookController {
 
 	@PostMapping("")
 	public ResponseEntity<JsonResult> add(@RequestBody GuestbookVo vo) {
-		// System.out.println("add vo : " + vo);
+		log.info("Request[POST /api/guestbook]:"+ vo);
 		
 		guestbookService.addContents(vo);
 		vo.setPassword("");	
@@ -50,7 +48,10 @@ public class GuestbookController {
 	}
 
 	@DeleteMapping("/{no}")
-	public ResponseEntity<JsonResult> delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
+	public ResponseEntity<JsonResult> delete(
+			@PathVariable("no") Long no, 
+			@RequestParam(value="password", required=true, defaultValue="") String password) {
+		
 		Boolean result = guestbookService.deleteContents(no, password);		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(result ? no : null));
 	}

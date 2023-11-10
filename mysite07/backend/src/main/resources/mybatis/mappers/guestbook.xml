@@ -16,7 +16,7 @@
 		</if>
 		<![CDATA[
 	  	order by no desc
-	  	limit 0, 3
+	  	limit 0, 6
 	  	]]>
 	</select>
 	

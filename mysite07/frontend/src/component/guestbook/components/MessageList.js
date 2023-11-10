@@ -8,7 +8,7 @@ import modalStyles from '../../../assets/scss/component/modal/modal.scss';
 Modal.setAppElement('body');
 
 export default function MessageList({messages, notifyMessage}) {
-    console.log("messages", messages);
+    // console.log("messages", messages);
 
     const refForm = useRef(null);
     const [modalData, setModalData] = useState({isOpen: false});
@@ -26,13 +26,16 @@ export default function MessageList({messages, notifyMessage}) {
                 return;
             }
 
-            const response = await fetch(`/api/guestbook/${modalData.messageNo}`, {
+            
+            console.log(modalData.messageNo);
+
+            const password = e.target.password.value;
+            const response = await fetch(`/api/guestbook/${modalData.messageNo}?password=${password}`, {
                 method: 'delete',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                },
-                body: JSON.stringify({password: e.target.password.value})
+                }
             });
 
             if (!response.ok) {
