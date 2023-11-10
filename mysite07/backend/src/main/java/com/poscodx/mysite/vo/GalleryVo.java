@@ -10,5 +10,5 @@ import lombok.ToString;
 public class GalleryVo {
 	private Long no;
 	private String imageUrl;
-	private String comments;
+	private String comment;
 }

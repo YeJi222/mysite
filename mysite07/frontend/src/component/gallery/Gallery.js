@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {MySiteLayout} from "../../layout";
-import Header from "./Header";
-import ImageList from "./ImageList";
+import Header from "./components/Header";
+import ImageList from "./components/ImageList";
 import styles from '../../assets/scss/component/gallery/Gallery.scss';
-import data from '../../assets/json/data';
 
 export default function Index() {
-    const [imageList, setImageList] = useState(data);
+    const [imageList, setImageList] = useState([]);
 
     const fetchImages = async () => {
         try {
@@ -27,6 +26,8 @@ export default function Index() {
                 throw new Error(`${json.result} ${json.message}`);
             }
 
+            console.log(json.data);
+
             setImageList(json.data);
         } catch (err) {
             console.error(err);
@@ -36,6 +37,7 @@ export default function Index() {
     useEffect(() => {
         fetchImages();
     }, []);
+    
 
     const addImage = async (comment, file) => {
         try {
@@ -43,6 +45,8 @@ export default function Index() {
             const formData = new FormData();
             formData.append('comments', comment);
             formData.append('file', file);
+
+            // console.log(comment, file);
 
             // Post
             const response = await fetch(`/api/gallery`, {
@@ -68,12 +72,15 @@ export default function Index() {
         }
     };
 
-
     return (
         <MySiteLayout>
             <div className={styles.Gallery}>
                 <Header addImage={addImage}/>
-                <ImageList imageList={imageList} />
+                {
+                    imageList === null ?
+                    null :
+                    <ImageList imageList={imageList} />
+                }
             </div>
         </MySiteLayout>
     )

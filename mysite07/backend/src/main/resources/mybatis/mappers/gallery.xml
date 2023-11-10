@@ -20,7 +20,9 @@
 	
 	<select id="findAll" resultType="galleryvo">
 		<![CDATA[
-		  select no, image_url, comment from gallery order by no desc
+		  select no, image_url, comment 
+		  	from gallery 
+		  order by no desc
 		]]>
 	</select>
 </mapper>

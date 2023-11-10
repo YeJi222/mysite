@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import Modal from "react-modal";
-import styles from '../../assets/scss/component/gallery/Header.scss';
-import modalStyles from '../../assets/scss/component/modal/modal.scss';
+import styles from '../../../assets/scss/component/gallery/Header.scss';
+import modalStyles from '../../../assets/scss/component/modal/modal.scss';
 
 Modal.setAppElement('body');
 

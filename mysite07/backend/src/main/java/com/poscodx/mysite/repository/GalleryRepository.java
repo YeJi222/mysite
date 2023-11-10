@@ -24,6 +24,8 @@ public class GalleryRepository {
 	}
 
 	public List<GalleryVo> findAll() {
+		System.out.println(sqlSession.selectList("gallery.findAll"));
+		
 		return sqlSession.selectList("gallery.findAll");
 	}
 }
