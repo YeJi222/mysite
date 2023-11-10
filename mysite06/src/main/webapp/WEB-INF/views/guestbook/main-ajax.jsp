@@ -29,9 +29,10 @@ var messageBox = function(title, message, callback){
 	});
 }
 
-var render = function(vo, mode) {
+var render = function(vo, mode, idx) {
+	// console.log("render idx : " + idx);
 	var html = 		
-		"<li data-no='" + vo.no + "'>" +
+		"<li data-no='" + idx + "'>" +
 		"<strong>" + vo.name + "</strong>" +
 		"<p>" + vo.contents + "</p>" +
 		"<strong></strong>" +
@@ -40,46 +41,86 @@ var render = function(vo, mode) {
 		    
 	$("#list-guestbook")[mode ? 'prepend' : 'append'](html);
 }
-
-var fetch = function() {
-	$.ajax({
-		url: "${pageContext.request.contextPath}/api/guestbook",
+ 
+// var endVal = false;
+var ajaxResult = null;
+var sno = 0;
+var fetch = function(sno) {
+	console.log("$$$$$ fetch sno:" + sno);
+	// if(endVal) return;
+	
+	if(ajaxResult != null) ajaxResult.abort();
+	
+	ajaxResult = $.ajax({
+		url: "${pageContext.request.contextPath}/api/guestbook?sno=" + sno,
 		type: "get",
 		dataType: "json",
 		success: function(response) {
+			// if sno가 guestbook list length 이상이면 
+			/* if(sno >= 14) endVal = true;
+			if(response.data.length < 3) endVal = true; */
+			
+			sno = response.sno;
+			console.log("ajax-sno : " + response.sno);
+			
 			if(response.result === 'fail') {
 				console.error(response.message);
 				return;
 			}
 			
-			response.data.forEach(function(vo){
-				render(vo, false);
+			response.data.forEach(function(vo, idx){
+				// console.log(vo); 
+				/* 
+				console.log(response.data);
+				
+				*/
+				console.log(idx);
+				render(vo, false, idx+1);
 			})
-		}
-	})	
-}
-
-/* $(function(){
-	$(window).scroll(function(){
-		// 조건(스크롤바가 바닥에 도착)이 되면 fetch() 호출
-		var $window = $(this);
-		var $document = $(document);
-		
-		var wh = $window.height();
-		var dh = $document.height();
-		var st = $window.scrollTop();
-		
-		if(dh < wh + st + 10) {
-			console.log("fetch!!!");
-			fetch();
+			
+			var startNo = $("#list-guestbook li").last().data("no") + 1;
+			console.log("last + 1", startNo);
+			
+			// 그 숫자가 sno가 된다 
+		 	sno = startNo;
 		}
 	})
 	
-	// 최초 리스트 가져오기
-	fetch();
-}); */
+	
+}
 
 $(function(){
+	// 스크롤이 페이지 최하단에 위치했는지를 확인
+	// 이벤트를 통해 추가되는 콘텐츠가 비동기식(ajax)으로 하단에 추가
+	// 스크롤이 계속 늘어나도록 
+
+	var n = 5;
+	$(function(){
+		$(window).scroll(function(){ // 스크롤 변경시 이벤트 발생 
+			// 조건(스크롤바가 바닥에 도착)이 되면 fetch() 호출
+			var $window = $(this);
+			var $document = $(document);
+			
+			var wh = $window.height(); // 현재 화면 높이 
+			var dh = $document.height(); // 전체 문서의 높이 
+			var st = $window.scrollTop(); // 현재 스크롤 위치 
+			
+			if(dh < wh + st + 10) {
+				
+				if(n < ${listLen}){
+					console.log("fetch!!!");
+					console.log("sno", sno);
+					fetch(sno);
+					/* fetch(n);
+					n += 5; */
+				}
+			}
+		})
+		
+		// 최초 리스트 가져오기
+		// fetch();
+	});
+	
 	$('#add-form').submit(function(event) {
 		event.preventDefault();
 		
@@ -123,8 +164,11 @@ $(function(){
 					console.error(response.message);
 					return;
 				}
-				
 				render(response.data, true);
+				
+				$('#input-name').val("");		
+				$('#input-password').val("");		
+				$('#tx-content').val("");		
 			}
 		})
 	});
@@ -192,7 +236,7 @@ $(function(){
 	})
 	
 	// 최초 리스트 가져오기
-	fetch();
+	fetch(0);
 });
 </script>
 </head>

@@ -31,6 +31,8 @@ public class GuestbookController {
 	
 	@RequestMapping("/ajax")
 	public String ajax(Model model) {
+		Long listLen = guestbookService.getListLen();
+		model.addAttribute("listLen", listLen);
         return "guestbook/main-ajax";
 	}
 	

@@ -3,7 +3,16 @@ package com.poscodx.mysite.dto;
 public class JsonResult {
 	private String result; 	// "success" or "fail"
 	private Object data; 	// if success, set!
+	private Long sno;
 	private String message;	// if fail, set!
+	
+	private JsonResult(Object data, Long sno) {
+		this.result = "success";
+		this.data = data;
+		this.sno = sno;
+		
+		System.out.println(sno);
+	}
 	
 	private JsonResult(Object data) {
 		this.result = "success";
@@ -21,8 +30,15 @@ public class JsonResult {
 	public Object getData() {
 		return data;
 	}
+	public Object getSno() {
+		return sno;
+	}
 	public String getMessage() {
 		return message;
+	}
+	
+	public static JsonResult success_sno(Object data, Long sno) {
+		return new JsonResult(data, sno);
 	}
 	
 	public static JsonResult success(Object data) {

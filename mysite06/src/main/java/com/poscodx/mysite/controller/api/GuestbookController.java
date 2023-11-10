@@ -30,11 +30,23 @@ public class GuestbookController {
 	}
 
 	@GetMapping
-	public JsonResult read() {
-		List<GuestbookVo> list = guestbookService.getContentsList();
-
-		return JsonResult.success(list);
+	public JsonResult read(@RequestParam(name = "sno") Long sno) {
+		System.out.println("sno : " + sno);
+		
+		List<GuestbookVo> list = guestbookService.geGuestbookList(sno);
+		System.out.println(list);
+		
+		return JsonResult.success_sno(list, sno);
 	}
+	
+//	@GetMapping
+//	public JsonResult getRowNo(@RequestParam(name = "startNo") Long startNo) {
+//		System.out.println("startNo" + startNo);
+//		
+//		Long row = guestbookService.getRowNo(startNo);
+//		
+//		return JsonResult.success(row);
+//	}
 	
 	@DeleteMapping("{no}")
 	public JsonResult delete(

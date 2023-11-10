@@ -2,12 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="guestbook">
+	<select id="getListLen" resultType="long">
+		<![CDATA[
+		  select count(*)
+		  	from guestbook 
+		]]>
+	</select>
 	
 	<select id="findAll" resultType="guestbookvo">
 		<![CDATA[
 		  select no, name, contents, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate 
 		  	from guestbook 
 		  order by reg_date desc
+		]]>
+	</select>
+	
+	<select id="findAllScroll" parameterType="long" resultType="guestbookvo">
+		<![CDATA[
+		  select no, name, contents, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate 
+		  	from guestbook 
+		  where no >= #{sno }
+		  	order by reg_date desc
+		  limit 0, 5;
 		]]>
 	</select>
 	 

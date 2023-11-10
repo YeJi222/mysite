@@ -35,4 +35,13 @@ public class GuestbookRepository {
 		int count = sqlSession.delete("guestbook.deleteByNoAndPassword", map);
 		return count == 1;
 	}
+
+	public List<GuestbookVo> findAllScroll(Long sno) {
+		// System.out.println("repo : " + sno);
+		return sqlSession.selectList("guestbook.findAllScroll", sno);
+	}
+
+	public Long getListLen() {
+		return sqlSession.selectOne("guestbook.getListLen");
+	}
 }

@@ -26,4 +26,12 @@ public class GuestbookService {
 		return guestbookRepository.insert(vo);
 	}
 
+	public List<GuestbookVo> geGuestbookList(Long sno) {
+		return guestbookRepository.findAllScroll(sno);
+	}
+
+	public Long getListLen() {
+		return guestbookRepository.getListLen(); 
+	}
+
 }
