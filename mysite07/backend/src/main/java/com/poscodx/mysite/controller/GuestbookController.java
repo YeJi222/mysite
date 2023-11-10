@@ -15,6 +15,9 @@ import com.poscodx.mysite.dto.JsonResult;
 import com.poscodx.mysite.service.GuestbookService;
 import com.poscodx.mysite.vo.GuestbookVo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api/guestbook")
 public class GuestbookController {
@@ -25,14 +28,24 @@ public class GuestbookController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<JsonResult> list(@RequestParam(value="no", required=true, defaultValue="0") Long startNo) {
-		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(guestbookService.getContentsList(startNo)));
+	public ResponseEntity<JsonResult> list(
+			@RequestParam(value="no", required=true, defaultValue="0") Long startNo) {	
+		log.info("Request[GET /api/guestbook]:"+ startNo);
+		System.out.println("list : " + guestbookService.getContentsList(startNo));
+		System.out.println(JsonResult.success(guestbookService.getContentsList(startNo)).getData());
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(guestbookService.getContentsList(startNo)));
 	}
 
 	@PostMapping("")
 	public ResponseEntity<JsonResult> add(@RequestBody GuestbookVo vo) {
+		// System.out.println("add vo : " + vo);
+		
 		guestbookService.addContents(vo);
-		vo.setPassword("");		
+		vo.setPassword("");	
+		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(vo));
 	}
 

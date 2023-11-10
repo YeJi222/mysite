@@ -31,13 +31,18 @@ public class GalleryController {
 
 	@GetMapping("")
 	public ResponseEntity<JsonResult> index() {
+		System.out.println("gallery");
+		System.out.println(galleryService.getGalleryImages());
+		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(galleryService.getGalleryImages()));
 	}
 	
 	@PostMapping
 	public ResponseEntity<JsonResult> upload(MultipartFile file, GalleryVo galleyVo) {
-		galleyVo.setImageUrl(FileUploadService.restoreImage(file));
-		galleryService.addGalleryImage(galleyVo);
+		// System.out.println("gallery post");
+		
+//		galleyVo.setImageUrl(FileUploadService.restoreImage(file));
+//		galleryService.addGalleryImage(galleyVo);
 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(galleyVo));
 	}

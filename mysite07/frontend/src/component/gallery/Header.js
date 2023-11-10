@@ -10,6 +10,29 @@ export default function Header({addImage}) {
     const refForm = useRef(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    const addImageSubmit = function (e) {
+        console.log("addImageOnClick");
+
+        e.preventDefault();
+
+        // Validation
+        if (e.target['comment'].value === '') {
+            console.error(`validation ${e.target['comment'].placeholder} is empty ''`);
+            return;
+        }
+
+        if (e.target['uploadImage'].files.length === 0) {
+            console.error(`validation ${e.target['uploadImage'].placeholder} is empty`);
+            return;
+        }
+
+        const comment = e.target['comment'].value;
+        const file = e.target['uploadImage'].files[0];
+
+        addImage(comment, file);
+        setModalIsOpen(false);
+    }
+
     return (
         <>
             <div className={styles.Header}>
@@ -25,7 +48,10 @@ export default function Header({addImage}) {
                 style={{content: {width: 350}}}>
                 <h1>이미지(사진) 등록</h1>
                 <div>
-                    <form ref={refForm} className={styles.FormUpload} onSubmit={(e) => { }}>
+                    <form 
+                        ref={refForm} 
+                        className={styles.FormUpload} 
+                        onSubmit={ addImageSubmit }>
                         <input type={'text'} name={'comment'} placeholder={'설명(코멘트)'}/>
                         <br/><br/>
                         <label>이미지(사진)</label>
@@ -34,7 +60,9 @@ export default function Header({addImage}) {
                     </form>
                 </div>
                 <div className={modalStyles['modal-dialog-buttons']}>
-                    <button onClick={() => refForm.current.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}))}>확인</button>
+                    <button onClick={(e) => {
+                        refForm.current.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}))}
+                    }>확인</button>
                     <button onClick={() => setModalIsOpen(false)}>취소</button>
                 </div>
             </Modal>

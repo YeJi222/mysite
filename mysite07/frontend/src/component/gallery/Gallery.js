@@ -8,6 +8,35 @@ import data from '../../assets/json/data';
 export default function Index() {
     const [imageList, setImageList] = useState(data);
 
+    const fetchImages = async () => {
+        try {
+            const response = await fetch('/api/gallery', {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+
+            const json = await response.json();
+            if (json.result !== 'success') {
+                throw new Error(`${json.result} ${json.message}`);
+            }
+
+            setImageList(json.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        fetchImages();
+    }, []);
+
     const addImage = async (comment, file) => {
         try {
             // Create FormData
