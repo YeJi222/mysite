@@ -25,7 +25,7 @@ export default function Header({addImage}) {
                 style={{content: {width: 350}}}>
                 <h1>이미지(사진) 등록</h1>
                 <div>
-                    <form ref={refForm} className={styles.FormUpload} onSubmit={(e) => {}}>
+                    <form ref={refForm} className={styles.FormUpload} onSubmit={(e) => { }}>
                         <input type={'text'} name={'comment'} placeholder={'설명(코멘트)'}/>
                         <br/><br/>
                         <label>이미지(사진)</label>

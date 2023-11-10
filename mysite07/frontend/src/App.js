@@ -1,5 +1,5 @@
 import React from 'react';
-import {useRoutes} from 'react-router';
+import {Routes, Route} from 'react-router';
 import './assets/scss/App.scss';
 
 import {Main} from './component/main';
@@ -10,6 +10,18 @@ import SignUp from './component/user/SignUp';
 import Settings from './component/user/Settings';
 
 export default function App() {
+    //*
+    return (
+        <Routes>
+            <Route path='/gallery' element={<Gallery />}/>
+            <Route path='/guestbook' element={<Guestbook />}/>
+            <Route path='/user/login' element={<SignIn />}/>
+            <Route path='/user/join' element={<SignUp />}/>
+            <Route path='/user/settings' element={<Settings />}/>
+            <Route path='*' element={<Main />}/>
+        </Routes>
+    );
+    /*/
     return useRoutes([
         { path:'/gallery', element: <Gallery /> },
         { path:'/guestbook', element: <Guestbook /> },
@@ -18,4 +30,5 @@ export default function App() {
         { path:'/user/settings', element: <Settings /> },
         { path:'*', element: <Main /> }
     ]);
+    */
 }

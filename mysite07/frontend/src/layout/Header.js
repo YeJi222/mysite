@@ -9,7 +9,7 @@ export default function Header() {
             <nav className={styles.UserMenu}>
                 <NavLink to={'/user/login'}>로그인</NavLink>
                 <NavLink to={'/user/join'}>회원가입</NavLink>
-                <NavLink to={'/user/update'}>프로필수정</NavLink>
+                <NavLink to={'/user/settings'}>프로필수정</NavLink>
                 <a href='#' onClick={(e) => {
                     e.preventDefault();
                     console.log('로그아웃 구현');
