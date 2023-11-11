@@ -26,8 +26,6 @@ export default function Index() {
                 throw new Error(`${json.result} ${json.message}`);
             }
 
-            console.log(json.data);
-
             setImageList(json.data);
         } catch (err) {
             console.error(err);
@@ -72,6 +70,39 @@ export default function Index() {
         }
     };
 
+    const deleteImage = async (no) => {
+        try {
+            try {
+                // Delete
+                const response = await fetch(`/api/gallery/${no}`, {
+                    method: 'delete',
+                    headers: {'Accept': 'application/json'}
+                });
+
+                // fetch success?
+                if (!response.ok) {
+                    throw `${response.status} ${response.statusText}`;
+                }
+
+                // API success?
+                const json = await response.json();
+                if (json.result !== 'success') {
+                    throw json.message;
+                }
+
+                // console.log(parseInt(json.data.no));
+
+                // re-rendering(update)
+                setImageList(imageList.filter((item) => item.no !== parseInt(json.data.no)));
+            } catch (err) {
+                console.error(err);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
     return (
         <MySiteLayout>
             <div className={styles.Gallery}>
@@ -79,7 +110,10 @@ export default function Index() {
                 {
                     imageList === null ?
                     null :
-                    <ImageList imageList={imageList} />
+                    <ImageList 
+                        imageList={imageList} 
+                        deleteImage={deleteImage}
+                    />
                 }
             </div>
         </MySiteLayout>
