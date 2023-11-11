@@ -44,9 +44,7 @@ export default function Index() {
             formData.append('comment', comment);
             formData.append('file', file);
 
-            // console.log(comment, file);
-
-            // Post
+            // Post api
             const response = await fetch(`/api/gallery`, {
                 method: 'post',
                 headers: {'Accept': 'application/json'},
@@ -73,7 +71,7 @@ export default function Index() {
     const deleteImage = async (no) => {
         try {
             try {
-                // Delete
+                // Delete api
                 const response = await fetch(`/api/gallery/${no}`, {
                     method: 'delete',
                     headers: {'Accept': 'application/json'}
@@ -89,7 +87,6 @@ export default function Index() {
                 if (json.result !== 'success') {
                     throw json.message;
                 }
-
                 // console.log(parseInt(json.data.no));
 
                 // re-rendering(update)
@@ -101,7 +98,6 @@ export default function Index() {
             console.error(err);
         }
     };
-
 
     return (
         <MySiteLayout>

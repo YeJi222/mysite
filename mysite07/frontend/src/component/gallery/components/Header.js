@@ -10,8 +10,6 @@ export default function Header({addImage}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const addImageSubmit = function (e) {
-        console.log("addImageOnClick");
-
         e.preventDefault();
 
         // Validation
@@ -36,7 +34,10 @@ export default function Header({addImage}) {
         <>
             <div className={styles.Header}>
                 <h2>갤러리</h2>
-                <a className={styles.UploadButton} onClick={() => setModalIsOpen(true)}>이미지 올리기</a>
+                <a 
+                    className={styles.UploadButton} 
+                    onClick={() => setModalIsOpen(true)}
+                >이미지 올리기</a>
             </div>
             <Modal
                 isOpen={modalIsOpen}

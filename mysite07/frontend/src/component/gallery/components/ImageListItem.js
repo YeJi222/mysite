@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import Modal from "react-modal";
 import styles from '../../../assets/scss/component/gallery/ImageListItem.scss';
 import modalStyles from '../../../assets/scss/component/modal/modal.scss';
@@ -7,7 +7,6 @@ Modal.setAppElement('body');
 
 export default function ImageListItem({no, url, comment, deleteImage}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    // console.log(no, url, comment);
 
     return (
         <>
