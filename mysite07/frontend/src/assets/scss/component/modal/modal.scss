@@ -31,6 +31,24 @@
     font-size: 0.75em;
   }
 
+  .imgArea {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 92%;
+  }
+
+  .deleteImg {
+    z-index: 1;
+    margin-top: 5px;
+    float: right;
+    background-position: right;
+    width: 20px;
+    height: 20px;
+    background: url('../../../images/component/gallery/delete-image.png') 0 0 no-repeat;
+    background-size: 20px;
+  }
+
   .modal-content {
     height: 116.6px;
     padding: .5em 1em;

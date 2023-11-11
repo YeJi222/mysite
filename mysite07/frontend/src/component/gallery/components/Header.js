@@ -6,7 +6,6 @@ import modalStyles from '../../../assets/scss/component/modal/modal.scss';
 Modal.setAppElement('body');
 
 export default function Header({addImage}) {
-
     const refForm = useRef(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
