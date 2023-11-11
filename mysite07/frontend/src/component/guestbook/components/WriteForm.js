@@ -21,7 +21,7 @@ export default function WriteForm({notifyMessage}) {
                     return res;
                 }, {});
 
-            // newMessage : {name: '11', password: '11', contents: '11'}
+            // newMessage 형태 : {name: '11', password: '11', contents: '11'}
             refForm.current.reset();
             notifyMessage.add(newMessage);
         } catch (err) {

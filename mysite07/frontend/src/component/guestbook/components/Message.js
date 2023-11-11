@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import styles from '../../../assets/scss/component/guestbook/Message.scss';
 
 export default function Message({no, name, contents, notifyMessage}) {
-    
-    // console.log(no, name, contents);
-    
     return (
         <li className={styles.Message}>
             <strong>{name}</strong>

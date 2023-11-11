@@ -18,7 +18,6 @@ function Guestbook() {
 
         const messagesInState = this ? messagesRef.current : messages;
         const startNo = messagesInState.length === 0 ? 0 : messagesInState[messagesInState.length - 1].no;
-        // console.log("start no :", startNo);
 
         try {
             const response = await fetch(`/api/guestbook?no=${startNo}`, {
@@ -37,8 +36,7 @@ function Guestbook() {
             if (json.result !== 'success') {
                 throw json.message;
             }
-
-            console.log("data", json.data);
+            // console.log("data", json.data);
 
             json.data.length > 0 && setMessages([...messagesInState, ...json.data]);
             isFetching = false;
@@ -48,7 +46,7 @@ function Guestbook() {
     }
 
     useEffect(() => {
-        const handleWindowScroll = function () {
+        const handleWindowScroll = function () { // 무한 스크롤
             const documentHeight = window.document.body.offsetHeight;
             const viewportHeight = document.documentElement.clientHeight || window.innerHeight;
             const scrollTop = document.documentElement.scrollTop;
@@ -95,7 +93,6 @@ function Guestbook() {
             if (json.result !== 'success') {
                 throw json.message;
             }
-
             //  console.log(json.data);
 
             setMessages([json.data, ...messages]);
@@ -107,7 +104,10 @@ function Guestbook() {
             <div className={styles.Guestbook}>
                 <h2>방명록</h2>
                 <WriteForm notifyMessage={notifyMessage}/>
-                <MessageList messages={messages} notifyMessage={notifyMessage}/>
+                <MessageList 
+                    messages={messages} 
+                    notifyMessage={notifyMessage}
+                />
             </div>
         </MySiteLayout>
     );

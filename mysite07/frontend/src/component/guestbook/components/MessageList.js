@@ -9,7 +9,6 @@ Modal.setAppElement('body');
 
 export default function MessageList({messages, notifyMessage}) {
     // console.log("messages", messages);
-
     const refForm = useRef(null);
     const [modalData, setModalData] = useState({isOpen: false});
 
@@ -25,10 +24,7 @@ export default function MessageList({messages, notifyMessage}) {
             if (e.target.password.value === '') {
                 return;
             }
-
             
-            console.log(modalData.messageNo);
-
             const password = e.target.password.value;
             const response = await fetch(`/api/guestbook/${modalData.messageNo}?password=${password}`, {
                 method: 'delete',
