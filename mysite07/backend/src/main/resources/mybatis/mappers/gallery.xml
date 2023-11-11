@@ -3,7 +3,7 @@
 <mapper namespace="gallery">
 	<insert id="insert" parameterType="galleryvo">
 		<![CDATA[
-		insert into gallery values(null, #{comments }, #{imageUrl })
+		insert into gallery values(null, #{comment }, #{imageUrl })
 		]]>
 	  	<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[

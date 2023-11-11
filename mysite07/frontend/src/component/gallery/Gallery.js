@@ -43,7 +43,7 @@ export default function Index() {
         try {
             // Create FormData
             const formData = new FormData();
-            formData.append('comments', comment);
+            formData.append('comment', comment);
             formData.append('file', file);
 
             // console.log(comment, file);

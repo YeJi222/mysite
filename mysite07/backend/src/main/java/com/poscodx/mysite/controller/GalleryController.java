@@ -39,6 +39,7 @@ public class GalleryController {
 	
 	@PostMapping
 	public ResponseEntity<JsonResult> upload(MultipartFile file, GalleryVo galleyVo) {
+		
 		System.out.println("upload");
 		System.out.println(file);
 		
