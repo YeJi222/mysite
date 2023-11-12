@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# export PATH=/usr/local/poscodx2023/java/bin
+export PATH=/usr/local/poscodx2023/java/bin
 
 APPLICATION_NAME=mysite07
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
