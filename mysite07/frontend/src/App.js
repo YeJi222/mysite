@@ -8,6 +8,7 @@ import {Gallery} from './component/gallery';
 import SignIn from './component/user/SignIn';
 import SignUp from './component/user/SignUp';
 import Settings from './component/user/Settings';
+import Admin from './component/admin/Admin';
 
 export default function App() {
     //*
@@ -18,9 +19,10 @@ export default function App() {
             <Route path='/user/login' element={<SignIn />}/>
             <Route path='/user/join' element={<SignUp />}/>
             <Route path='/user/settings' element={<Settings />}/>
+            <Route path='/admin' element={<Admin />}/>
             <Route path='*' element={<Main />}/>
         </Routes>
-    );
+    );s
     /*/
     return useRoutes([
         { path:'/gallery', element: <Gallery /> },

@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+.container {
+    text-align: left;
+    width: 750px;
+    margin: 0 auto;
+    background-color:#EEE;
+
+    #content {
+        float:right; 
+        width:580px; 
+        background-color:#fff; 
+        padding:10px 15px 100px 15px; 
+    }
+  
+    #navigation {
+        float:left; 
+        width:140px; 
+        height:100%; 
+    }
+}
