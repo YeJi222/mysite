@@ -4,8 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && npx webpack --config config/webpack.config.js --progress --mode production",
-    "dev": "npx webpack serve --config config/webpack.config.js --progress --mode development"
+    "build": "npm run build:fe && npm run build:be",
+    "dev": "concurrently \"npm run dev:be\" \"npm run dev:fe\" --kill-others",
+  
+    "build:be": "cd ../backend && mvn clean package",
+    "dev:be": "cd ../backend && mvn spring-boot:run",
+  
+    "build:fe": "npm install && npx webpack --config config/webpack.config.js --mode production",
+    "dev:fe": "npx webpack serve --config config/webpack.config.js --progress --mode development"
   },
   "keywords": [],
   "author": "",
