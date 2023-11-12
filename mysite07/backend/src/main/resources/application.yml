@@ -70,7 +70,7 @@ spring:
          on-profile: production
    web:
       resources:
-         static-locations: classpath:/assets/, file:/mysite-uploads/         
+         static-locations: classpath:/assets/, file:/Users/yeji/mysite-uploads/   
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
       url: jdbc:mariadb://192.168.64.9:3307/webdb?characterEncoding=utf8
