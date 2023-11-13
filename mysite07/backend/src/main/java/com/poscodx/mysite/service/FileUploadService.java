@@ -6,15 +6,20 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileUploadService {
-	private static String SAVE_PATH = "/Users/yeji/mysite-uploads/gallery";
-	private static String URL_BASE = "/assets/gallery";
+	@Value("${mysite.upload.location}")
+	private String uploadLocation;
+	
+	private String URL_BASE = "/assets/gallery";
 	
 	public String restoreImage(MultipartFile file) throws RuntimeException {
+		final String SAVE_PATH = uploadLocation + "/gallery";
+		
 		try {
 			File uploadDirectory = new File(SAVE_PATH);
 			if(!uploadDirectory.exists()) {

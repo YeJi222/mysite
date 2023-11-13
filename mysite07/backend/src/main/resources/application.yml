@@ -31,6 +31,10 @@ mybatis:
          
 ---
 # development configuration
+mysite:
+   upload:
+      location: /Users/yeji/mysite-uploads
+
 spring:
    config:
       activate:
@@ -40,7 +44,7 @@ spring:
          enabled: true
    web:
       resources:
-         static-locations: classpath:/assets/, file:/Users/yeji/mysite-uploads/
+         static-locations: classpath:/assets/, file:${mysite.upload.location}
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
       url: jdbc:mariadb://192.168.64.9:3307/webdb?characterEncoding=utf8
@@ -64,13 +68,17 @@ logging:
 #
 # production profile configuration
 #
+mysite:
+   upload:
+      location: /mysite-uploads
+
 spring:
    config:
       activate:
          on-profile: production
    web:
       resources:
-         static-locations: classpath:/assets/, file:/mysite-uploads/   
+         static-locations: classpath:/assets/, file:${mysite.upload.location}
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
       url: jdbc:mariadb://192.168.64.9:3307/webdb?characterEncoding=utf8
